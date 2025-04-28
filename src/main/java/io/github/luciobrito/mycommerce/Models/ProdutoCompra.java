@@ -1,27 +1,28 @@
 package io.github.luciobrito.mycommerce.Models;
 
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
-import java.util.Set;
 
-@Entity(name = "compras")
+@Entity
 @Getter
 @Setter
-public class Compra {
+public class ProdutoCompra {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
-    @Column(name = "data_compra")
-    private LocalDateTime dataCompra;
-    @OneToMany(mappedBy = "compra")
-    private Set<ProdutoCompra> itens;
+    private int quantidade;
+    @JoinColumn(name = "id_produto", referencedColumnName = "id")
+    private Produto produto;
+    @Column(name = "valor_unitario")
+    private Double valorUnitario;
+    @ManyToOne
+    @JoinColumn(name = "id_compra", referencedColumnName = "id")
+    private Compra compra;
     @CreationTimestamp
     private OffsetDateTime created_at;
     @UpdateTimestamp

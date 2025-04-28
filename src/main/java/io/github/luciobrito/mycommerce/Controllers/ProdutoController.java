@@ -1,6 +1,7 @@
 package io.github.luciobrito.mycommerce.Controllers;
 
 import io.github.luciobrito.mycommerce.DTOs.ProdutoDTO;
+import io.github.luciobrito.mycommerce.DTOs.ProdutoResponseDTO;
 import io.github.luciobrito.mycommerce.Models.Produto;
 import io.github.luciobrito.mycommerce.Services.ProdutoService;
 import org.springframework.beans.BeanUtils;

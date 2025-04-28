@@ -1,6 +1,7 @@
 package io.github.luciobrito.mycommerce.Services;
 
 
+import io.github.luciobrito.mycommerce.DTOs.ProdutoResponseDTO;
 import io.github.luciobrito.mycommerce.Models.Produto;
 import io.github.luciobrito.mycommerce.Models.ProdutoEstoque;
 import io.github.luciobrito.mycommerce.Repositories.ProdutoEstoqueRepo;
@@ -19,7 +20,7 @@ public class ProdutoService {
     private ProdutoEstoqueRepo estoqueRepo;
 
     public List<Produto> all(){
-        return produtoRepo.getProdutoQuantidade();
+        return produtoRepo.findAll();
     }
     public Produto cadastrar(Produto produto){
         ProdutoEstoque estoque = new ProdutoEstoque();

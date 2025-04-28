@@ -1,5 +1,6 @@
 package io.github.luciobrito.mycommerce.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +20,9 @@ public class ProdutoEstoque {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_produto", referencedColumnName = "id")
+    @JsonIgnore
     private Produto produto;
+    @JsonIgnore
     @CreationTimestamp
     private OffsetDateTime created_at;
     @UpdateTimestamp

@@ -22,17 +22,17 @@ public class Produto  {
     private String nome;
     private String descricao;
     private Double preco;
-    @JsonIgnore
     @OneToOne(mappedBy = "produto")
     private ProdutoEstoque estoque;
     @Column(name = "codigo_barra")
     private String codigoBarra;
+    @JsonIgnore
+    @OneToMany(mappedBy = "produto")
+    private ProdutoCompra compra;
     @CreationTimestamp
     private OffsetDateTime created_at;
     @UpdateTimestamp
     private OffsetDateTime updated_at;
-    @Transient
-    private int quantidade;
     public int quantidade(){
         return estoque.getQuantidade();
     }

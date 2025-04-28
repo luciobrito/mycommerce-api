@@ -1,6 +1,7 @@
 package io.github.luciobrito.mycommerce.Models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -12,12 +13,12 @@ import java.time.OffsetDateTime;
 @Setter
 public class ProdutoEstoque {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
     private int quantidade;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "produto_id", referencedColumnName = "id")
+    @JoinColumn(name = "id_produto", referencedColumnName = "id")
     private Produto produto;
     @CreationTimestamp
     private OffsetDateTime created_at;
@@ -34,5 +35,11 @@ public class ProdutoEstoque {
     }
     private void repor(int quantidadeARepor){
         this.quantidade += quantidadeARepor;
+    }
+    public void setProduto(Produto produto){
+        this.produto = produto;
+    }
+    public int getQuantidade(){
+        return this.quantidade;
     }
 }

@@ -1,5 +1,6 @@
 package io.github.luciobrito.mycommerce.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,11 +17,12 @@ import java.util.UUID;
 public class Produto  {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
     private String nome;
     private String descricao;
     private Double preco;
+    @JsonIgnore
     @OneToOne(mappedBy = "produto")
     private ProdutoEstoque estoque;
     @Column(name = "codigo_barra")
@@ -29,4 +31,10 @@ public class Produto  {
     private OffsetDateTime created_at;
     @UpdateTimestamp
     private OffsetDateTime updated_at;
+    @Transient
+    private int quantidade;
+    public int quantidade(){
+        return estoque.getQuantidade();
+    }
+
 }

@@ -9,12 +9,13 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity(name = "produtos")
 @Getter
 @Setter
-public class Produto  {
+public class Produto implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +29,7 @@ public class Produto  {
     private String codigoBarra;
     @JsonIgnore
     @OneToMany(mappedBy = "produto")
-    private ProdutoCompra compra;
+    private Set<ProdutoCompra> compra;
     @CreationTimestamp
     private OffsetDateTime created_at;
     @UpdateTimestamp

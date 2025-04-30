@@ -1,7 +1,6 @@
 package io.github.luciobrito.mycommerce.Services;
 
 
-import io.github.luciobrito.mycommerce.DTOs.ProdutoResponseDTO;
 import io.github.luciobrito.mycommerce.Models.Produto;
 import io.github.luciobrito.mycommerce.Models.ProdutoEstoque;
 import io.github.luciobrito.mycommerce.Repositories.ProdutoEstoqueRepo;

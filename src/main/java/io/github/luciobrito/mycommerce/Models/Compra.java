@@ -26,4 +26,7 @@ public class Compra {
     private OffsetDateTime created_at;
     @UpdateTimestamp
     private OffsetDateTime updated_at;
+    public Set<ProdutoCompra> getItens(){
+        return this.itens;
+    }
 }

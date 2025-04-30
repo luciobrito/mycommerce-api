@@ -27,4 +27,8 @@ public class ProdutoCompra {
     private OffsetDateTime created_at;
     @UpdateTimestamp
     private OffsetDateTime updated_at;
+
+    public void setCompra(Compra compra){
+        this.compra = compra;
+    }
 }

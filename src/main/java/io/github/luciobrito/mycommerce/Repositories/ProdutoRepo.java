@@ -1,6 +1,5 @@
 package io.github.luciobrito.mycommerce.Repositories;
 
-import io.github.luciobrito.mycommerce.DTOs.ProdutoResponseDTO;
 import io.github.luciobrito.mycommerce.Models.Produto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

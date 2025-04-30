@@ -20,11 +20,12 @@ public class CompraService {
     ProdutoEstoqueRepo estoqueRepo;
     @Autowired
     ProdutoCompraRepo produtoCompraRepo;
-    public Compra novaCompra(Set<ProdutoCompra> itens){
-        itens.forEach(item -> {
-            //item.setCompra(compra);
+    public Compra novaCompra(Compra compra){
+        compraRepo.save(compra);
+        compra.getItens().forEach(item -> {
+           item.setCompra(compra);
             produtoCompraRepo.save(item);
         });
-        return ;
+        return compra;
     }
 }

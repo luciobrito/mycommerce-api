@@ -7,12 +7,14 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import java.io.Serializable;
 import java.time.OffsetDateTime;
 
 @Entity(name = "produto_estoque")
 @Getter
 @Setter
-public class ProdutoEstoque {
+public class ProdutoEstoque implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
@@ -28,7 +30,7 @@ public class ProdutoEstoque {
     @UpdateTimestamp
     private OffsetDateTime updated_at;
 
-    private void retirar(int quantidadeARetirar) throws Exception{
+    public void retirar(int quantidadeARetirar) throws Exception{
         if(quantidadeARetirar > this.quantidade){
             throw new Exception("Quantidade solicitada maior do que o estoque.");
         }
@@ -36,7 +38,7 @@ public class ProdutoEstoque {
             this.quantidade = quantidade - quantidadeARetirar;
         }
     }
-    private void repor(int quantidadeARepor){
+    public void repor(int quantidadeARepor){
         this.quantidade += quantidadeARepor;
     }
     public void setProduto(Produto produto){

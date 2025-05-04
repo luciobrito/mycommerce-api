@@ -6,16 +6,18 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serializable;
 import java.time.OffsetDateTime;
 
 @Entity
 @Getter
 @Setter
-public class ProdutoCompra {
+public class ProdutoCompra implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
     private int quantidade;
+    @ManyToOne
     @JoinColumn(name = "id_produto", referencedColumnName = "id")
     private Produto produto;
     @Column(name = "valor_unitario")
@@ -31,4 +33,5 @@ public class ProdutoCompra {
     public void setCompra(Compra compra){
         this.compra = compra;
     }
+    public void setProduto(Produto produto) {this.produto = produto;}
 }

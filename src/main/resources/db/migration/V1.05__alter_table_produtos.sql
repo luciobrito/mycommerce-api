@@ -1,0 +1,1 @@
+ALTER TABLE produtos ADD quantidade_estoque INT UNSIGNED DEFAULT 0

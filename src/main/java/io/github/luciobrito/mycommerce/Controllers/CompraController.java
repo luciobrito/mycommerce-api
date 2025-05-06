@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @RestController()
@@ -21,14 +22,17 @@ public class CompraController {
     CompraService compraService;
 
     @GetMapping
-    public String getCompra(){
-        return "";
+    public List<Compra> getCompra(){
+        return compraService.getAll();
     }
     @PostMapping
     public ResponseEntity novaCompra(@RequestBody CompraDTO compraDTO){
         Compra compra = new Compra();
         BeanUtils.copyProperties(compraDTO,compra);
-
         return ResponseEntity.status(HttpStatus.OK).body(compraService.novaCompra(compra, compraDTO.itens()));
+    }
+    @GetMapping("single")
+    public Optional<Compra> getCompraById(){
+        return compraService.getById(1);
     }
 }

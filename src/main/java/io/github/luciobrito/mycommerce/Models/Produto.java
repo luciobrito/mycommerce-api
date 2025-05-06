@@ -23,19 +23,34 @@ public class Produto implements Serializable {
     private String nome;
     private String descricao;
     private Double preco;
-    @OneToOne(mappedBy = "produto")
-    private ProdutoEstoque estoque;
+
+    //@OneToOne(mappedBy = "produto")
+    //private ProdutoEstoque estoque;
+
     @Column(name = "codigo_barra")
     private String codigoBarra;
     @JsonIgnore
     @OneToMany(mappedBy = "produto")
     private Set<ProdutoCompra> compra;
+    @Column(name = "quantidade_estoque")
+    private int quantidadeEstoque;
     @CreationTimestamp
     private OffsetDateTime created_at;
     @UpdateTimestamp
     private OffsetDateTime updated_at;
+
+    public void reporEstoque(int quantidade){
+        this.quantidadeEstoque += quantidade;
+    }
+    public void removerEstoque(int quantidade){
+        this.quantidadeEstoque -= quantidade;
+    }
+/*
     public int quantidade(){
         return estoque.getQuantidade();
     }
-
+    public ProdutoEstoque produtoEstoque(){
+        return this.estoque;
+    }
+*/
 }

@@ -26,9 +26,4 @@ public class ProdutoController {
         BeanUtils.copyProperties(produtoDTO, produto);
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoService.cadastrar(produto));
     }
-    @GetMapping("/qnt")
-    public int quantidade(){
-        Optional<Produto> a = produtoService.getById(3);
-       return a.get().quantidade();
-    }
 }

@@ -1,5 +1,6 @@
 package io.github.luciobrito.mycommerce.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +23,7 @@ public class ProdutoCompra implements Serializable {
     private Produto produto;
     @Column(name = "valor_unitario")
     private Double valorUnitario;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_compra", referencedColumnName = "id")
     private Compra compra;

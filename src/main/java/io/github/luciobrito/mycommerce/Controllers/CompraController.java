@@ -31,8 +31,8 @@ public class CompraController {
         BeanUtils.copyProperties(compraDTO,compra);
         return ResponseEntity.status(HttpStatus.OK).body(compraService.novaCompra(compra, compraDTO.itens()));
     }
-    @GetMapping("single")
-    public Optional<Compra> getCompraById(){
-        return compraService.getById(1);
+    @GetMapping("/{id}")
+    public Optional<Compra> getCompraById(@PathVariable(value = "id") int id){
+        return compraService.getById(id);
     }
 }

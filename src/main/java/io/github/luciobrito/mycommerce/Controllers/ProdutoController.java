@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin
 @RestController
 public class ProdutoController {
     @Autowired
     private ProdutoService produtoService;
-    @GetMapping("/")
+    @GetMapping("/produto")
     public List<Produto> getProdutos(){
         return produtoService.all();
     }

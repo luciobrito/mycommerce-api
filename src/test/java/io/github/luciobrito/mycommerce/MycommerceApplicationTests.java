@@ -9,14 +9,5 @@ import org.springframework.test.web.servlet.MockMvc;
 class MycommerceApplicationTests {
 	@Autowired
 	MockMvc mvc;
-	@Test
-	void contextLoads() {
-
-
-	}
-	@Test
-	void caso1(){
-
-	}
 
 }

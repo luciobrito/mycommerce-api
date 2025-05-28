@@ -26,4 +26,8 @@ public class ProdutoController {
         BeanUtils.copyProperties(produtoDTO, produto);
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoService.cadastrar(produto));
     }
+    @GetMapping("/produto/{value}")
+    public ResponseEntity<List<Produto>> buscarProdutos(@PathVariable(value = "value") String value){
+        return ResponseEntity.status(HttpStatus.OK).body(produtoService.buscar(value));
+    }
 }

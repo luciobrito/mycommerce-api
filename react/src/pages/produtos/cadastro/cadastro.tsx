@@ -1,7 +1,7 @@
 import { Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { postProduto, Produto } from "../../../services/produtoService";
-
+import "./cadastro.scss";
 export default function CadastroProduto() {
   const [nome, setNome] = useState<string>(""),
     [codigoBarra, setCodigoBarra] = useState<string>(""),
@@ -19,14 +19,47 @@ export default function CadastroProduto() {
     preco: preco,
   };
   return (
-    <div>
-        <Typography variant="h5">Cadastrar um produto:</Typography>
-        <div>
-      <TextField label="Nome" placeholder="Base" onChange={(e) => {setNome( e.target.value)}} />
-      <TextField label="Código de barra" placeholder="00000" onChange={(e) => {setCodigoBarra( e.target.value) }} />
-      <TextField label="Preço" placeholder="12.99" onChange={(e) => {setPreco( parseInt(e.target.value)) }} />
-      <TextField label="Descrição" placeholder="Muito bom" onChange={(e) => {setDescricao( e.target.value)}} />
-      <Button variant="contained" onClick={()=> {submit()}}>Cadastrar</Button>
+    <div className="container">
+      <Typography variant="h5">Cadastrar um produto:</Typography>
+      <div className="formulario">
+        <div className="formulario-content">
+        <TextField
+          label="Nome"
+          placeholder="Base"
+          onChange={(e) => {
+            setNome(e.target.value);
+          }}
+        />
+        <TextField
+          label="Código de barra"
+          placeholder="00000"
+          onChange={(e) => {
+            setCodigoBarra(e.target.value);
+          }}
+        />
+        <TextField
+          label="Preço"
+          placeholder="12.99"
+          onChange={(e) => {
+            setPreco(parseInt(e.target.value));
+          }}
+        />
+        <TextField
+          label="Descrição"
+          placeholder="Muito bom"
+          onChange={(e) => {
+            setDescricao(e.target.value);
+          }}
+        />
+        <Button
+          variant="contained"
+          onClick={() => {
+            submit();
+          }}
+        >
+          Cadastrar
+        </Button>
+        </div>
       </div>
     </div>
   );

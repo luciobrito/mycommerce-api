@@ -3,6 +3,7 @@ import Home from "./pages/home/page";
 import Login from "./pages/login/page";
 import Produtos from "./pages/produtos/produtos";
 import CadastroProduto from "./pages/produtos/cadastro/cadastro";
+import Compra from "./pages/produtos/compra/compra";
 
 export default function Router(){
     return <BrowserRouter>
@@ -11,6 +12,7 @@ export default function Router(){
             <Route path="/login" element={<Login/>}/>
             <Route path="/produtos" element={<Produtos/>}/> 
             <Route path="/cadastro" element={<CadastroProduto/>} />
+            <Route path="/compra" element={<Compra/>}/>
         </Routes>
     
     </BrowserRouter>

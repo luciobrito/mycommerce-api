@@ -24,3 +24,8 @@ export const postProduto = (produto: Produto) => {
     descricao: produto.descricao,
   });
 };
+
+export const buscarProdutos = (valor : string) => {
+  var urlBusca = valor === "" ? "" : "/" + valor;
+  return axios.get(url + urlBusca);
+}

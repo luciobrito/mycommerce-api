@@ -23,5 +23,5 @@ public class ProdutoService {
     public Optional<Produto> getById(int id){
         return produtoRepo.findById(id);
     }
-
+    public List<Produto> buscar(String value) {return produtoRepo.buscarProduto(value);};
 }

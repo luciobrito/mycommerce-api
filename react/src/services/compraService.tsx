@@ -1,7 +1,10 @@
-import { Produto } from "./produtoService";
-
 export interface Compra {
-    produtos : Produto[],
+    itens : ItemCompra[],
     desconto : number,
-    dataCompra : Date
+    dataCompra : string
+}
+export interface ItemCompra {
+    quantidade : number,
+    idProduto : number,
+    valorUnitario : number
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export interface Produto {
-  id?: number;
+  id: number;
   nome: string;
   preco: number;
   quantidadeEstoque?: number;

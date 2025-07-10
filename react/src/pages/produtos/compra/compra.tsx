@@ -34,6 +34,7 @@ export default function CompraPage() {
     if(quantidade) itensCompraAux[index].quantidade = quantidade
     if(valorUnitario) itensCompraAux[index].valorUnitario =  valorUnitario
     setItensCompra(itensCompraAux)
+    console.log(itensCompra)
   }
   return (
     <div>
@@ -49,7 +50,7 @@ export default function CompraPage() {
       <ListaProdutos produtos={produtos} addItem={addIt} itens={itensCompra}/>
       {/* */}
         <Typography variant="h6">Lista de produtos:</Typography>
-      <ListaItens itens={itens} itensCompra={itensCompra}/>
+      <ListaItens itens={itens} atualizarLista={atualizarItem}/>
     </div>
   );
 }

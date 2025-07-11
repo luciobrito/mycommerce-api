@@ -5,14 +5,12 @@ export default function ListaItens({
   itens,
   atualizarLista,
   finalizarCompra,
+  removerItem
 }: {
   itens: Produto[];
-  atualizarLista: (
-    id: number,
-    quantidade?: number,
-    valorUnitario?: number
-  ) => void;
-  finalizarCompra: () => void;
+  atualizarLista: any;
+  finalizarCompra: any;
+  removerItem: any
 }) {
   return (
     <div>
@@ -38,7 +36,7 @@ export default function ListaItens({
                   atualizarLista(item.id, parseInt(e.target.value));
                 }}
               />
-              <Button variant="contained" color="error">
+              <Button variant="contained" color="error" onClick={()=> {removerItem(item)}}>
                 -
               </Button>
             </div>

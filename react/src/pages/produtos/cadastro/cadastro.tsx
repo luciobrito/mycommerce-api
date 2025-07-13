@@ -13,6 +13,7 @@ export default function CadastroProduto() {
       });
     };
   var produtoData: Produto = {
+    id : 0,
     nome: nome,
     codigoBarra: codigoBarra,
     descricao: descricao,

@@ -4,16 +4,22 @@ import Login from "./pages/login/page";
 import Produtos from "./pages/produtos/produtos";
 import CadastroProduto from "./pages/produtos/cadastro/cadastro";
 import CompraPage from "./pages/produtos/compra/compra";
+import Venda from "./pages/produtos/venda/venda";
 
-export default function Router(){
-    return <BrowserRouter>
-        <Routes>
-            <Route path="/" element={<Home/>}/>
-            <Route path="/login" element={<Login/>}/>
-            <Route path="/produtos" element={<Produtos/>}/> 
-            <Route path="/cadastro" element={<CadastroProduto/>} />
-            <Route path="/compra" element={<CompraPage/>}/>
-        </Routes>
-    
+export default function Router() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/venda"
+          children={[<Route path="/" element={<Venda />} />]}
+        />
+        <Route path="/produtos" element={<Produtos />} />
+        <Route path="/cadastro" element={<CadastroProduto />} />
+        <Route path="/compra" element={<CompraPage />} />
+      </Routes>
     </BrowserRouter>
+  );
 }

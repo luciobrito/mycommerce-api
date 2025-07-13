@@ -10,7 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serializable;
 import java.time.OffsetDateTime;
-
+/*Classe não utilizada mais*/
 @Entity(name = "produto_estoque")
 @Getter
 @Setter

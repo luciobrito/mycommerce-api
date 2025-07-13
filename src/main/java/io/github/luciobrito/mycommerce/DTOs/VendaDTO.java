@@ -1,4 +1,7 @@
 package io.github.luciobrito.mycommerce.DTOs;
 
-public record VendaDTO() {
+import java.time.LocalDateTime;
+import java.util.Set;
+
+public record VendaDTO(Set<ProdutoVendaDTO> itens, String formaPagamento, double desconto, LocalDateTime dataVenda) {
 }

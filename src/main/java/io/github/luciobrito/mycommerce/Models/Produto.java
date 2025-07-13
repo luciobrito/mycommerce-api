@@ -16,34 +16,40 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Produto implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
     private String nome;
     private String descricao;
     private Double preco;
-
-    //@OneToOne(mappedBy = "produto")
-    //private ProdutoEstoque estoque;
-
     @Column(name = "codigo_barra")
     private String codigoBarra;
-    @JsonIgnore
-    @OneToMany(mappedBy = "produto")
-    private Set<ProdutoCompra> compra;
     @Column(name = "quantidade_estoque")
     private int quantidadeEstoque;
+
+    //Timestamps
     @CreationTimestamp
     private OffsetDateTime created_at;
     @UpdateTimestamp
     private OffsetDateTime updated_at;
 
+    //Relacionamentos
+    @JsonIgnore
+    @OneToMany(mappedBy = "produto")
+    private Set<ProdutoCompra> compra;
+    @JsonIgnore
+    @OneToMany(mappedBy = "produto")
+    private Set<ProdutoVenda> venda;
+    //@OneToOne(mappedBy = "produto")
+    //private ProdutoEstoque estoque;
+
     public void reporEstoque(int quantidade){
         this.quantidadeEstoque += quantidade;
     }
+
+    //Melhorar com mensagem de erro caso ultrapasse a quantidade em estoque
     public void removerEstoque(int quantidade){
-        this.quantidadeEstoque -= quantidade;
+        if(quantidadeEstoque >= quantidade) quantidadeEstoque -= quantidade;
     }
 /*
     public int quantidade(){

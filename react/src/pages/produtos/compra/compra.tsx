@@ -35,23 +35,17 @@ export default function CompraPage() {
   };
   const removerItem = (produto : Produto) => {
     //Rascunho, ainda tem que melhorar
-    var itensCompraAux = itensCompra;
-    var itensAux = itens;
+    var itensCompraAux = [...itensCompra]; //Quer dizer que vc quer criar uma cópia e não uma ref
+    var itensAux = [...itens];
     var index = itensCompraAux.findIndex((x) => x.idProduto === produto.id);
-    var index2 = itens.findIndex(x => x.id === produto.id);
+    var index2 = itensAux.findIndex(x => x.id === produto.id);
     itensCompraAux.splice(index,1);
     itensAux.splice(index2,1)
     setItensCompra(itensCompraAux);
-    setItensCompra([...itensCompra]);
     setItens(itensAux);
     console.log(itens)
-    return;
   };
-  const atualizarItem = (
-    id: number,
-    quantidade?: number,
-    valorUnitario?: number
-  ) => {
+  const atualizarItem = (id: number, quantidade?: number, valorUnitario?: number) => {
     var itensCompraAux = itensCompra;
     var index = itensCompra.findIndex((x) => x.idProduto == id);
     if (quantidade) itensCompraAux[index].quantidade = quantidade;
@@ -68,16 +62,13 @@ export default function CompraPage() {
   return (
     <div>
       <Typography variant="h5">Nova compra</Typography>
-      {/*Transformar esses dois ↓ em uma modal (?)*/}
       <TextField
         label="Buscar produtos"
         onChange={(e) => {
           setValorBusca(e.target.value);
         }}
       />
-
       <ListaProdutos produtos={produtosBusca} addItem={addIt} itens={itensCompra} />
-      {/* */}
       <Typography variant="h6">Lista de produtos:</Typography>
       <ListaItens
         itens={itens}

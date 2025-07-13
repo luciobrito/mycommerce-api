@@ -27,7 +27,7 @@ public class CompraController {
         return compraService.getAll();
     }
     @PostMapping
-    public ResponseEntity novaCompra(@RequestBody CompraDTO compraDTO){
+    public ResponseEntity<Compra> novaCompra(@RequestBody CompraDTO compraDTO){
         Compra compra = new Compra();
         BeanUtils.copyProperties(compraDTO,compra);
         return ResponseEntity.status(HttpStatus.OK).body(compraService.novaCompra(compra, compraDTO.itens()));

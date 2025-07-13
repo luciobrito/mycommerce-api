@@ -34,7 +34,7 @@ public class CompraService {
            produtoCompra.setCompra(compraSave);
            //System.out.println("Id da compra: " + compra.id + "\n" + item.idProduto());
            Optional<Produto> produto = produtoRepo.findById(item.idProduto());
-            produto.get().reporEstoque(item.quantidade());
+           produto.get().reporEstoque(item.quantidade());
            produtoCompra.setProduto(produto.get());
            produtoRepo.save(produto.get());
            produtoCompraRepo.save(produtoCompra);

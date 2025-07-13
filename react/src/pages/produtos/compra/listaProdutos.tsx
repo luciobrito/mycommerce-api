@@ -1,4 +1,4 @@
-import { Button, List, ListItem, ListItemButton, ListItemText } from "@mui/material";
+import { Button, List, ListItem, ListItemText } from "@mui/material";
 import { Produto } from "../../../services/produtoService";
 import { ItemCompra } from "../../../services/compraService";
 

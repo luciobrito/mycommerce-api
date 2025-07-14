@@ -1,7 +1,10 @@
 package io.github.luciobrito.mycommerce.Controllers;
 
+import io.github.luciobrito.mycommerce.DTOs.MaisVendidosMesDTO;
+import io.github.luciobrito.mycommerce.DTOs.SomaVendasDiaDTO;
 import io.github.luciobrito.mycommerce.DTOs.VendaDTO;
 import io.github.luciobrito.mycommerce.Models.Venda;
+import io.github.luciobrito.mycommerce.Services.EstatisticasService;
 import io.github.luciobrito.mycommerce.Services.VendaService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,8 @@ import java.util.List;
 public class VendaController {
     @Autowired
     VendaService vendaService;
+    @Autowired
+    EstatisticasService estatisticasService;
     @GetMapping
     public List<Venda> getVendas(){ return vendaService.getAll();}
     @PostMapping
@@ -23,5 +28,13 @@ public class VendaController {
         Venda venda = new Venda();
         BeanUtils.copyProperties(vendaDTO,venda);
         return ResponseEntity.status(HttpStatus.OK).body(vendaService.novaVenda(venda, vendaDTO.itens()));
+    }
+    @GetMapping("/somaDiaria")
+    public ResponseEntity<List<SomaVendasDiaDTO>> somaVendas(){
+        return ResponseEntity.status(HttpStatus.OK).body(estatisticasService.SomaVendasDiarias());
+    }
+    @GetMapping("/maisVendidos")
+    public ResponseEntity<List<MaisVendidosMesDTO>> maisVendidos(@RequestParam int mes, @RequestParam int ano){
+        return ResponseEntity.status(HttpStatus.OK).body(estatisticasService.maisVendidosMes(mes,ano));
     }
 }

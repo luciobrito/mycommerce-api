@@ -42,7 +42,7 @@ export default function CadastroProduto() {
           label="Preço"
           placeholder="12.99"
           onChange={(e) => {
-            setPreco(parseInt(e.target.value));
+            setPreco(parseFloat(e.target.value));
           }}
         />
         <TextField

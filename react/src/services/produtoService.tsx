@@ -17,12 +17,7 @@ export const getProdutos = () => {
 };
 
 export const postProduto = (produto: Produto) => {
-  return axios.post(url, {
-    nome: produto.nome,
-    codigoBarra: produto.codigoBarra,
-    preco: produto.preco,
-    descricao: produto.descricao,
-  });
+  return axios.post(url, produto);
 };
 
 export const buscarProdutos = (valor : string) => {

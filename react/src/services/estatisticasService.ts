@@ -5,5 +5,4 @@ export interface SomaDiaria{
     mes : number,
     total : number
 }
-
 export const getSomaVendasDia = () => axios.get("http://localhost:8080/venda/somaDiaria")

@@ -19,14 +19,17 @@ export default function ListaProdutos({
                 primary={produto.nome}
                 secondary={produto.codigoBarra}
               />
-              <ListItemText secondary={produto.quantidadeEstoque} />
+              <ListItemText secondary={produto.quantidadeEstoque}/>
               <Button
+                disabled={produto.quantidadeEstoque == 0}
                 onClick={() =>
                   adicionar({
                     idProduto: produto.id,
                     quantidade: 0,
                     valorUnitario: produto.preco,
                   })
+          
+                
                 }
               >
                 +

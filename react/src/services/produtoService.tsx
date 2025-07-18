@@ -9,7 +9,7 @@ export interface Produto {
   descricao: string;
 }
 
-const url = "http://localhost:8080/produto";
+const url = import.meta.env.VITE_API_URL + "/produto";
 
 export const getProdutos = () => {
   axios.defaults.headers.get["Access-Control-Allow-Origin"] = "*";
@@ -21,6 +21,6 @@ export const postProduto = (produto: Produto) => {
 };
 
 export const buscarProdutos = (valor : string) => {
-  var urlBusca = valor === "" ? "" : "/" + valor;
+  var urlBusca = valor == "" ? "a" : "/" + valor;
   return axios.get(url + urlBusca);
 }

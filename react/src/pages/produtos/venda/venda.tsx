@@ -26,9 +26,9 @@ export default function Venda() {
   return (
     <div>
       <Typography variant="h5">Nova Venda</Typography>
-      <TextField label="Buscar produtos" placeholder="Busca por nome ou código" value={','} onChange={(e)=>{setValorBusca(e.target.value)}}/>
+      <TextField label="Buscar produtos" placeholder="Busca por nome ou código" onChange={(e)=>{setValorBusca(e.target.value)}}/>
       <ListaProdutos produtos={produtosBusca} adicionar={adicionarItem}/>
-      <ListaItens/>
+      <ListaItens produtosVenda={itensVenda}/>
     </div>
   );
 }

@@ -1,34 +1,54 @@
 import { TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { buscarProdutos, Produto } from "../../../services/produtoService";
-import { ItemVenda } from "../../../services/vendaService";
+import { ItemVenda, postVenda, Venda } from "../../../services/vendaService";
 import ListaProdutos from "./listaProdutos";
 import ListaItens from "./listaItens";
 
-export default function Venda() {
+export default function VendaPage() {
   const [produtosBusca, setProdutosBusca] = useState<Produto[]>([]),
     [valorBusca, setValorBusca] = useState<string>(""),
-    [itensVenda, setItensVenda] = useState<ItemVenda[]>([]),
-    [produtosVenda, setProdutosVenda] = useState<Produto[]>([])
-    ;
+    [venda, setVenda] = useState<Venda>({itens: [], dataVenda: "", desconto: 0, formaPagamento: ""}),
+    [isLoading, setIsLoading] = useState<boolean>(false);
+
   useEffect(() => {
     buscarProdutos(valorBusca).then((res) => setProdutosBusca(res.data));
   }, [valorBusca]);
-  const adicionarItem = (item : ItemVenda) => {
-    var itens = [...itensVenda]
-    itens.push(item)
-    setItensVenda(itens)
+
+  const adicionarItem = (item: ItemVenda) => {
+    var vendaObj = {...venda};
+    vendaObj.itens.push(item);
+    setVenda(vendaObj)
+  };
+
+  const removerItem = (id : number) =>{
+    var vendaObj = {...venda}
+    var index = vendaObj.itens.findIndex(x => x.idProduto == id)
+    vendaObj.itens.splice(index,1)
+    setVenda(vendaObj)
   }
-  const enviar = () =>{
-    produtosVenda.map(x => setItensVenda([...itensVenda, {quantidade:0, idProduto: x.id, valorUnitario: x.preco}]))
-  }
-  console.log(itensVenda)
+  //localStorage.setItem("ItemVenda", JSON.stringify(itensVenda));
+  
+  const finalizarVenda = () => {
+    postVenda(venda, setIsLoading)
+  };
+  console.log(venda);
   return (
     <div>
       <Typography variant="h5">Nova Venda</Typography>
-      <TextField label="Buscar produtos" placeholder="Busca por nome ou código" onChange={(e)=>{setValorBusca(e.target.value)}}/>
-      <ListaProdutos produtos={produtosBusca} adicionar={adicionarItem}/>
-      <ListaItens produtosVenda={itensVenda}/>
+      <TextField
+        label="Buscar produtos"
+        placeholder="Busca por nome ou código"
+        onChange={(e) => {
+          setValorBusca(e.target.value);
+        }}
+      />
+      <ListaProdutos
+        produtos={produtosBusca}
+        adicionar={adicionarItem}
+        venda={venda}
+      />
+      <ListaItens venda={venda} finalizarVenda={finalizarVenda} loading={isLoading} removerItem={removerItem} setVenda={setVenda}/>
     </div>
   );
 }

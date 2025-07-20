@@ -1,13 +1,15 @@
 import { Button, List, ListItem, ListItemText } from "@mui/material";
 import { Produto } from "../../../services/produtoService";
-import { ItemVenda } from "../../../services/vendaService";
+import { ItemVenda, Venda } from "../../../services/vendaService";
 
 export default function ListaProdutos({
   produtos,
   adicionar,
+  venda
 }: {
   produtos: Produto[];
   adicionar: (i: ItemVenda) => void;
+  venda : Venda
 }) {
   return (
     <div>
@@ -21,12 +23,14 @@ export default function ListaProdutos({
               />
               <ListItemText secondary={produto.quantidadeEstoque}/>
               <Button
-                disabled={produto.quantidadeEstoque == 0}
+              /*Se a quantidade do produto estiver zerada ou se já estiver incluído na lista*/
+                disabled={produto.quantidadeEstoque == 0 || venda.itens.some(i => i.idProduto === produto.id)}
                 onClick={() =>
                   adicionar({
                     idProduto: produto.id,
-                    quantidade: 0,
-                    valorUnitario: produto.preco,
+                    quantidade: 1,
+                    valor_unitario: produto.preco,
+                    produto: produto
                   })
           
                 

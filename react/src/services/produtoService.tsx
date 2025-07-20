@@ -21,6 +21,6 @@ export const postProduto = (produto: Produto) => {
 };
 
 export const buscarProdutos = (valor : string) => {
-  var urlBusca = valor == "" ? "a" : "/" + valor;
+  var urlBusca = valor == "" ? "/-" : "/" + valor;
   return axios.get(url + urlBusca);
 }

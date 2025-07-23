@@ -1,4 +1,4 @@
-import { Button, List, ListItem, ListItemText } from "@mui/material";
+import { Button, Divider, List, ListItem, ListItemText, Typography } from "@mui/material";
 import { Produto } from "../../../services/produtoService";
 import { ItemVenda, Venda } from "../../../services/vendaService";
 
@@ -12,16 +12,18 @@ export default function ListaProdutos({
   venda : Venda
 }) {
   return (
-    <div>
+    <div className="lista">
       <List dense>
         {produtos.map((produto) => {
-          return (
-            <ListItem key={produto.id}>
+          return (<div>
+            <ListItem key={produto.id} className="item">
               <ListItemText
-                primary={produto.nome}
-                secondary={produto.codigoBarra}
+                className="lista-item"
+                primary={`${produto.nome} `}
+                secondary={`Em estoque: ${produto.quantidadeEstoque} Cod: ${produto.codigoBarra} R$${produto.preco}`}
+                title={`${produto.nome} - ${produto.codigoBarra}`}
+                color="error"
               />
-              <ListItemText secondary={produto.quantidadeEstoque}/>
               <Button
               /*Se a quantidade do produto estiver zerada ou se já estiver incluído na lista*/
                 disabled={produto.quantidadeEstoque == 0 || venda.itens.some(i => i.idProduto === produto.id)}
@@ -39,6 +41,8 @@ export default function ListaProdutos({
                 +
               </Button>
             </ListItem>
+            <Divider/>
+            </div>
           );
         })}
       </List>

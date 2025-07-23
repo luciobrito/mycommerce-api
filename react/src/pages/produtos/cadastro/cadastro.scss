@@ -1,16 +1,42 @@
 .formulario {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 100%;
     gap: 1rem;
 
 }
 .container {
-    width: 100%;
+    width: 40%;
     display: flex;
     align-items: center;
     flex-direction: column;
+    background-color: white;
+    border-radius: 5px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    .titulo{
+    margin-top: 20px;
 }
+}
+.formulario-content{
+            padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+}
+.botoes{
+    width: inherit;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    flex-grow: 5;
+    Button {
+        width: 100%;
+    }
+}
+
 @media only screen and (max-width: 600px){
     .formulario {
         width: 100%;
@@ -21,6 +47,9 @@
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
+    }
+    .container{
+        width: 90%;
     }
     
 }

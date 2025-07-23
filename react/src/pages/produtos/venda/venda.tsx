@@ -4,7 +4,7 @@ import { buscarProdutos, Produto } from "../../../services/produtoService";
 import { ItemVenda, postVenda, Venda } from "../../../services/vendaService";
 import ListaProdutos from "./listaProdutos";
 import ListaItens from "./listaItens";
-
+import "./venda.scss"
 export default function VendaPage() {
   const [produtosBusca, setProdutosBusca] = useState<Produto[]>([]),
     [valorBusca, setValorBusca] = useState<string>(""),
@@ -34,9 +34,10 @@ export default function VendaPage() {
   };
   console.log(venda);
   return (
-    <div>
+    <div className="containerVenda">
       <Typography variant="h5">Nova Venda</Typography>
       <TextField
+        className="busca"
         label="Buscar produtos"
         placeholder="Busca por nome ou código"
         onChange={(e) => {

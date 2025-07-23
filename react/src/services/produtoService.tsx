@@ -16,7 +16,7 @@ export const getProdutos = () => {
   return axios.get(url);
 };
 
-export const postProduto = (produto: Produto) => {
+export const postProduto = (produto: Partial<Produto>) => {
   return axios.post(url, produto);
 };
 

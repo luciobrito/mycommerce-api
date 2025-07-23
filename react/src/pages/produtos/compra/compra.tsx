@@ -1,4 +1,4 @@
-import { TextField, Typography } from "@mui/material";
+import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { buscarProdutos, Produto } from "../../../services/produtoService";
 import {
@@ -8,13 +8,14 @@ import {
 } from "../../../services/compraService";
 import ListaProdutos from "./listaProdutos";
 import ListaItens from "./listaItens";
+import CadastroProduto from "../cadastro/cadastro";
 
 export default function CompraPage() {
   const [produtosBusca, setProdutosBusca] = useState<Produto[]>([]);
   const [valorBusca, setValorBusca] = useState("");
   const [itensCompra, setItensCompra] = useState<ItemCompra[]>([]);
   const [itens, setItens] = useState<Produto[]>([]);
-
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
   var compra: Compra = {
     desconto: 0,
     //Data está em UTC, mudar para horário de Brasilia
@@ -68,6 +69,13 @@ export default function CompraPage() {
           setValorBusca(e.target.value);
         }}
       />
+      <Button onClick={()=>{setModalOpen(true)}}>Cadastrar</Button>
+      <Modal open={modalOpen}          aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description">
+          <Box>
+          <CadastroProduto close={()=>{setModalOpen(false)}}/>
+          </Box>
+        </Modal>
       <ListaProdutos produtos={produtosBusca} addItem={addIt} itens={itensCompra} />
       <Typography variant="h6">Lista de produtos:</Typography>
       <ListaItens

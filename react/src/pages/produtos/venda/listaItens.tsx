@@ -7,8 +7,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Produto } from "../../../services/produtoService";
-import { ItemVenda, Venda } from "../../../services/vendaService";
+import { Venda } from "../../../services/vendaService";
 
 export default function ListaItens({
   venda,
@@ -23,15 +22,16 @@ export default function ListaItens({
   removerItem: any;
   setVenda: any;
 }) {
-  var total: number = 0;
+  var total: number = 0 ;
   const formasPagamento = ["Pix", "Credito", "Debito", "Dinheiro"];
+  
   venda.itens.map((x) => (total += (x.valor_unitario * x.quantidade)));
   const mudarQuantidade = (id : number | undefined, quantidade : number) =>{
     var index = venda.itens.findIndex(i => i.idProduto == id)    
     setVenda({...venda}, venda.itens[index].quantidade = quantidade)
   }
   return (
-    <div>
+    <div className="lista-itens-venda">
       <Typography variant="h5">Finalização</Typography>
       <List dense>
         {venda.itens.map((item) => (
@@ -54,7 +54,9 @@ export default function ListaItens({
           </ListItem>
         ))}
       </List>
-      <Typography>Total: R$ {total.toPrecision(4)}</Typography>
+      <div className="inputs">
+      <Typography>Total: R$ {total}</Typography>
+      <Typography>Total com desconto: R$ {(total - venda.desconto) <= 0 ? 0 : (total - venda.desconto)}</Typography>
       <TextField
         select
         label="Forma de pagamento"
@@ -76,7 +78,7 @@ export default function ListaItens({
       <TextField
         label="Desconto"
         onChange={(e) => {
-          setVenda({ ...venda, desconto: parseFloat(e.target.value) });
+          setVenda({ ...venda, desconto: parseFloat(e.target.value ) });
         }}
       />
       <Button
@@ -87,6 +89,7 @@ export default function ListaItens({
       >
         {loading ? "Carregando..." : "Finalizar venda"}
       </Button>
+      </div>
     </div>
   );
 }

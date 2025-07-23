@@ -1,0 +1,25 @@
+$margin:10px;
+.containerVenda{
+    display: flex;
+    flex-direction: column;
+    .busca{
+        margin: 10px;
+    }
+    .lista{
+
+    }
+    .lista-itens-venda{
+        display: flex;
+        flex-direction: column;
+        .inputs{
+            margin: $margin;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+    }
+}
+h5{
+    text-align: center;
+    font-weight: bold;
+}

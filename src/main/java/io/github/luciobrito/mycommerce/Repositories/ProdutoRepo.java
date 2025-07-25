@@ -13,4 +13,5 @@ import java.util.Set;
 public interface ProdutoRepo extends JpaRepository<Produto, Integer> {
     @Query("SELECT p FROM produtos p WHERE p.nome LIKE %:value% OR p.codigoBarra LIKE %:value%")
     List<Produto> buscarProduto(Pageable pageable, String value);
+    Produto findByCodigoBarra(String codigoBarra);
 }

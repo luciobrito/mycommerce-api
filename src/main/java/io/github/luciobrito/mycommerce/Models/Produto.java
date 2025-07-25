@@ -22,7 +22,7 @@ public class Produto implements Serializable {
     private String nome;
     private String descricao;
     private Double preco;
-    @Column(name = "codigo_barra")
+    @Column(name = "codigo_barra", unique = true)
     private String codigoBarra;
     @Column(name = "quantidade_estoque")
     private int quantidadeEstoque;

@@ -1,5 +1,4 @@
 import {
-  Button,
   List,
   ListItem,
   ListItemText,
@@ -8,7 +7,8 @@ import {
   Typography,
 } from "@mui/material";
 import { Venda } from "../../../services/vendaService";
-
+import { Button, Title } from "@mantine/core";
+import { DatePickerInput } from '@mantine/dates';
 export default function ListaItens({
   venda,
   finalizarVenda,
@@ -32,7 +32,7 @@ export default function ListaItens({
   }
   return (
     <div className="lista-itens-venda">
-      <Typography variant="h5">Finalização</Typography>
+      <Title>Finalização</Title>
       <List dense>
         {venda.itens.map((item) => (
           <ListItem key={item.idProduto}>
@@ -44,7 +44,7 @@ export default function ListaItens({
               onChange={(e) => {mudarQuantidade(item.idProduto, parseInt(e.target.value))}}
             />
             <Button
-              color="error"
+              bg={"red"}
               onClick={() => {
                 removerItem(item.idProduto);
               }}
@@ -74,6 +74,9 @@ export default function ListaItens({
         onChange={(e) => {
           setVenda({ ...venda, dataVenda: new Date(e.target.value).toJSON() });
         }}
+      />
+      <DatePickerInput
+        valueFormat="D/MM/YYYY"
       />
       <TextField
         label="Desconto"

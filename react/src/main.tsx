@@ -4,7 +4,7 @@ import App from './App.tsx'
 import { createTheme, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 
-const theme = createTheme({primaryColor:'indigo',})
+const theme = createTheme({primaryColor:'indigo', fontFamily:'Rubik'})
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

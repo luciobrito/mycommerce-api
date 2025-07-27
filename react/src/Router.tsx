@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter, createBrowserRouter, Route, Routes } from "react-router";
 import Home from "./pages/home/page";
 import Login from "./pages/login/page";
 import Produtos from "./pages/produtos/produtos";
@@ -24,3 +24,16 @@ export default function Router() {
     </BrowserRouter>
   );
 }
+
+export const routerConst = createBrowserRouter([
+  {path:"/",
+    element: <Home/>
+   }
+   ,
+   {
+    path:"/compra",
+    element: <CompraPage/>
+   },
+   {path:"/venda", element:<Venda/>},
+   {path:"/estatisticas", element:<Estatisticas/>}
+])

@@ -1,8 +1,9 @@
 import { AppShell, AppShellMain, Burger, Button, Title } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import App from "../App";
-import Router from "../Router";
+import Router, { routerConst } from "../Router";
 import NavbarLinks from "./NavbarLinks";
+import { RouterProvider } from "react-router";
 
 export default function AppBar(){
     const [open, {toggle}] = useDisclosure();
@@ -18,7 +19,7 @@ export default function AppBar(){
             <NavbarLinks/>
         </AppShell.Navbar>
             <AppShell.Main>
-                <Router/>
+                <RouterProvider router={routerConst}/>
             </AppShell.Main>
          </AppShell>
 }

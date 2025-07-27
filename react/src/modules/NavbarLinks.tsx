@@ -1,6 +1,7 @@
 import { NavLink } from "@mantine/core";
 import { useState } from "react";
-import { BsBag, BsChevronRight, BsCreditCard, BsGraphUp } from "react-icons/bs";
+import { BsArrowBarLeft, BsArrowLeft, BsBag, BsChevronRight, BsCreditCard, BsGraphUp } from "react-icons/bs";
+import { routerConst } from "../Router";
 export default function NavbarLinks() {
   const iconSize = 20;
   const [active, setActive] = useState(0);
@@ -17,15 +18,12 @@ export default function NavbarLinks() {
           variant="subtle"
           label={link.title}
           leftSection={<link.icon size={20} />}
-          rightSection={<BsChevronRight size={20} 
-          href={link.path}
-            onClick={(index)=>{console.log("clickado")}}
+          rightSection={<BsChevronRight size={20} />}
+          onClick={()=>{routerConst.navigate('/'+link.path)}}
           />
-            
-        }
-        />
+        
       )}
-      <NavLink label="sdadsa"  onClick={()=>{console.log("a")}}/>
+      <NavLink label="Sair" leftSection={<BsArrowBarLeft size={20} />}  onClick={()=>{console.log("a")}}/>
 
     </>
   );

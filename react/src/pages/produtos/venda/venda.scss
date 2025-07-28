@@ -5,9 +5,13 @@ $margin:10px;
     .busca{
         margin: 10px;
     }
+    @media only screen and (min-width: 600px)
+    {
     .lista{
-
-    }
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.2rem;
+    }}
     .lista-itens-venda{
         display: flex;
         flex-direction: column;

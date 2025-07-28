@@ -5,7 +5,7 @@ import { ItemVenda, postVenda, Venda } from "../../../services/vendaService";
 import ListaProdutos from "./listaProdutos";
 import ListaItens from "./listaItens";
 import "./venda.scss"
-import { Title } from "@mantine/core";
+import { TextInput, Title } from "@mantine/core";
 export default function VendaPage() {
   const [produtosBusca, setProdutosBusca] = useState<Produto[]>([]),
     [valorBusca, setValorBusca] = useState<string>(""),
@@ -37,9 +37,9 @@ export default function VendaPage() {
   return (
     <div className="containerVenda">
       <Title>Nova Venda</Title>
-      <TextField
-        className="busca"
+      <TextInput
         label="Buscar produtos"
+        size="md"
         placeholder="Busca por nome ou código"
         onChange={(e) => {
           setValorBusca(e.target.value);

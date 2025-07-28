@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Venda } from "../../../services/vendaService";
-import { Button, Title } from "@mantine/core";
+import { Button, NumberInput, Title } from "@mantine/core";
 import { DatePickerInput } from '@mantine/dates';
 export default function ListaItens({
   venda,
@@ -37,12 +37,7 @@ export default function ListaItens({
         {venda.itens.map((item) => (
           <ListItem key={item.idProduto}>
             <ListItemText primary={item.produto.nome} />
-            <input
-              type="number"
-              min={1}
-              max={item.produto.quantidadeEstoque}
-              onChange={(e) => {mudarQuantidade(item.idProduto, parseInt(e.target.value))}}
-            />
+            <NumberInput label="Quantidade" min={1} defaultValue={1} allowDecimal={false} max={item.produto.quantidadeEstoque} onChange={(e) => {mudarQuantidade(item.idProduto, parseInt(e.valueOf.toString()))}}/>
             <Button
               bg={"red"}
               onClick={() => {

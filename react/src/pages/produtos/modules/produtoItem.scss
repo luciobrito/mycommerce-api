@@ -1,0 +1,19 @@
+.container-produto {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  div {
+    .produto-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      gap: 0.1rem;
+    }
+  }
+}
+.produto-botao-preco {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+}

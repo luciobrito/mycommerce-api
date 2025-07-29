@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Venda } from "../../../services/vendaService";
-import { Button, NumberInput, Title } from "@mantine/core";
+import { Button, NativeSelect, NumberInput, Text, Title } from "@mantine/core";
 import { DatePickerInput } from '@mantine/dates';
 export default function ListaItens({
   venda,
@@ -24,7 +24,6 @@ export default function ListaItens({
 }) {
   var total: number = 0 ;
   const formasPagamento = ["Pix", "Credito", "Debito", "Dinheiro"];
-  
   venda.itens.map((x) => (total += (x.valor_unitario * x.quantidade)));
   const mudarQuantidade = (id : number | undefined, quantidade : number) =>{
     var index = venda.itens.findIndex(i => i.idProduto == id)    
@@ -36,7 +35,7 @@ export default function ListaItens({
       <List dense>
         {venda.itens.map((item) => (
           <ListItem key={item.idProduto}>
-            <ListItemText primary={item.produto.nome} />
+            <Text>{item.produto.nome}</Text>
             <NumberInput label="Quantidade" min={1} defaultValue={1} allowDecimal={false} max={item.produto.quantidadeEstoque} onChange={(e) => {mudarQuantidade(item.idProduto, parseInt(e.valueOf.toString()))}}/>
             <Button
               bg={"red"}
@@ -50,8 +49,8 @@ export default function ListaItens({
         ))}
       </List>
       <div className="inputs">
-      <Typography>Total: R$ {total}</Typography>
-      <Typography>Total com desconto: R$ {(total - venda.desconto) <= 0 ? 0 : (total - venda.desconto)}</Typography>
+      <Text>Total: R$ {total}</Text>
+      <Text>Total com desconto: R$ {(total - venda.desconto) <= 0 ? 0 : (total - venda.desconto)}</Text>
       <TextField
         select
         label="Forma de pagamento"
@@ -64,6 +63,7 @@ export default function ListaItens({
           <MenuItem value={fp}>{fp}</MenuItem>
         ))}
       </TextField>
+      <NativeSelect label="Forma de pagamento" defaultValue={""}  data={formasPagamento}/>
       <input
         type="date"
         onChange={(e) => {
@@ -71,6 +71,8 @@ export default function ListaItens({
         }}
       />
       <DatePickerInput
+      label="Data da venda"
+      defaultValue={"2025/07/28"}
         valueFormat="D/MM/YYYY"
       />
       <TextField

@@ -45,11 +45,15 @@ export default function VendaPage() {
           setValorBusca(e.target.value);
         }}
       />
+      <div style={{marginTop: 10}}>
       <ListaProdutos
         produtos={produtosBusca}
         adicionar={adicionarItem}
         venda={venda}
-      />
+        
+        />
+        {produtosBusca.length == 0 && valorBusca ? `Nenhum produto com "${valorBusca}" encontrado.` : ""}
+      </div>
       <ListaItens venda={venda} finalizarVenda={finalizarVenda} loading={isLoading} removerItem={removerItem} setVenda={setVenda}/>
     </div>
   );

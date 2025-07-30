@@ -1,14 +1,13 @@
-import { Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useMask } from '@react-input/mask';
 import { postProduto, Produto } from "../../../services/produtoService";
-import "./cadastro.scss";
+import { Button, TextInput } from "@mantine/core";
 export default function CadastroProduto({close}: {close : any}) {
   const [produto, setProduto] = useState<Omit<Produto, "id">>({nome:"",descricao:"",codigoBarra:"",preco:0,}),
         [error, setError] = useState<any>({nome:"",descricao:"",codigoBarra:"",preco: ""}),
         [loading, setLoading] = useState(false),
     submit = () => {
-      postProduto(produto).then((res) => {
+      postProduto(produto).then(() => {
         console.log("Cadastrado com sucesso!");
         setLoading(true)
       }).catch((res)=>{console.log(res.response.data); setError(res.response.data)})
@@ -17,30 +16,27 @@ export default function CadastroProduto({close}: {close : any}) {
   const inputRef = useMask({mask:'000'})
   return (
     <div className="container">
-      <Typography variant="h5" className="titulo">Cadastrar um produto:</Typography>
       <div className="formulario">
         <div className="formulario-content">
-        <TextField
+        <TextInput
           label="Nome"
-          placeholder="Base"
+          placeholder="Batom vermelho"
           onChange={(e) => {
             setProduto({...produto, nome:e.target.value});
           }}
           error={error.nome}
-          helperText={error.nome}
         />
-        <TextField
+        <TextInput
           label="Código de barra"
           placeholder="00000"
           onChange={(e) => {
             setProduto({...produto, codigoBarra: e.target.value});
           }}
           error={error.codigoBarra}
-          helperText={error.codigoBarra}
           ref={inputRef}
           type="text"
         />
-        <TextField
+        <TextInput
           label="Preço"
           defaultValue={0}
           placeholder="12.99"
@@ -48,9 +44,8 @@ export default function CadastroProduto({close}: {close : any}) {
             setProduto({...produto, preco: parseFloat(e.target.value)})
           }}
           error={error.preco}
-          helperText={error.preco}
         />
-        <TextField
+        <TextInput
           label="Descrição"
           placeholder="Muito bom"
           onChange={(e) => {
@@ -58,7 +53,7 @@ export default function CadastroProduto({close}: {close : any}) {
           }}
         />
         <div className="botoes">
-        <Button color="error" onClick={()=>{close()}}>
+        <Button color="red" onClick={()=>{close()}}>
           Cancelar
         </Button>
         <Button

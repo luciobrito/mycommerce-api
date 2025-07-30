@@ -50,7 +50,7 @@ export default function VendaPage() {
         <ListaProdutos
         produtos={produtosBusca}
         adicionar={adicionarItem}
-        venda={venda}
+        itens={venda.itens}
         
         />
         { buscaLdng ? <Loader /> : ""}

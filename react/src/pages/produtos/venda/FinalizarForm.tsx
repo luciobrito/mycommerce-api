@@ -9,15 +9,15 @@ export default function FinalizarForm({venda, setVenda}:{venda :Venda, setVenda:
     const date = `${d.getFullYear()}/${d.getMonth()}/${d.getDay()}`;
     const formasPagamento = ["Pix","Credito","Debito","Dinheiro Fisico"]
     const finalizarVenda = () => {
-        
+        setLoading(true)
         postVenda(venda, setLoading)
     }
     return <>
         
         <NativeSelect label="Forma de pagamento:" data={formasPagamento}/>
         <DatePickerInput label="Data da venda" valueFormat="DD/MM/YYYY" defaultValue={date}/>
-        <NumberInput />
+        <NumberInput label="Desconto" defaultValue={0}/>
         <Text>Total</Text>
-        <Button onClick={()=>{finalizarVenda()}} disabled={venda.itens.length == 0}>Finalizar venda</Button>
+        <Button loading={loading} onClick={()=>{finalizarVenda()}} disabled={venda.itens.length == 0}>Finalizar venda</Button>
     </>
 }

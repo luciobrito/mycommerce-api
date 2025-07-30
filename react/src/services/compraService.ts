@@ -1,4 +1,5 @@
 import axios from "axios"
+import { Produto } from "./produtoService";
 
 export interface Compra {
     itens : ItemCompra[],
@@ -8,7 +9,8 @@ export interface Compra {
 export interface ItemCompra {
     quantidade : number,
     idProduto : number,
-    valorUnitario : number
+    valorUnitario : number,
+    produto: Produto
 }
 
 export const postCompra = (compra : Compra) => {

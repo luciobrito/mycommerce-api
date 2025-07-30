@@ -1,7 +1,5 @@
-import { Divider, List, ListItem, ListItemText, Typography } from "@mui/material";
 import { Produto } from "../../../services/produtoService";
 import { ItemVenda, Venda } from "../../../services/vendaService";
-import { Button } from "@mantine/core";
 import ProdutoItem from "../modules/ProdutoItem";
 
 export default function ListaProdutos({

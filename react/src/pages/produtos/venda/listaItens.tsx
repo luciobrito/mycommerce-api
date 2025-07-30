@@ -1,30 +1,18 @@
 import {
   List,
   ListItem,
-  ListItemText,
-  MenuItem,
-  TextField,
-  Typography,
 } from "@mui/material";
 import { Venda } from "../../../services/vendaService";
-import { Button, NativeSelect, NumberInput, Text, Title } from "@mantine/core";
-import { DatePickerInput } from '@mantine/dates';
+import { Button, NumberInput, Text, Title } from "@mantine/core";
 export default function ListaItens({
   venda,
-  finalizarVenda,
-  loading,
   removerItem,
   setVenda,
 }: {
   venda: Venda;
-  finalizarVenda: any;
-  loading: any;
   removerItem: any;
   setVenda: any;
 }) {
-  var total: number = 0 ;
-  const formasPagamento = ["Pix", "Credito", "Debito", "Dinheiro"];
-  venda.itens.map((x) => (total += (x.valor_unitario * x.quantidade)));
   const mudarQuantidade = (id : number | undefined, quantidade : number) =>{
     var index = venda.itens.findIndex(i => i.idProduto == id)    
     setVenda({...venda}, venda.itens[index].quantidade = quantidade)
@@ -47,7 +35,7 @@ export default function ListaItens({
             </Button>
           </ListItem>
         ))}
-      </List>
+      </List>{/* 
       <div className="inputs">
       <Text>Total: R$ {total}</Text>
       <Text>Total com desconto: R$ {(total - venda.desconto) <= 0 ? 0 : (total - venda.desconto)}</Text>
@@ -89,7 +77,7 @@ export default function ListaItens({
       >
         {loading ? "Carregando..." : "Finalizar venda"}
       </Button>
-      </div>
+      </div>*/}
     </div>
   );
 }

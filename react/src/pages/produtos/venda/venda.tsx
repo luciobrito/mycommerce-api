@@ -1,19 +1,20 @@
-import { TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { buscarProdutos, Produto } from "../../../services/produtoService";
 import { ItemVenda, postVenda, Venda } from "../../../services/vendaService";
 import ListaProdutos from "./listaProdutos";
 import ListaItens from "./listaItens";
 import "./venda.scss"
-import { TextInput, Title } from "@mantine/core";
+import { Loader, TextInput, Title } from "@mantine/core";
+import FinalizarForm from "./FinalizarForm";
 export default function VendaPage() {
   const [produtosBusca, setProdutosBusca] = useState<Produto[]>([]),
     [valorBusca, setValorBusca] = useState<string>(""),
     [venda, setVenda] = useState<Venda>({itens: [], dataVenda: "", desconto: 0, formaPagamento: ""}),
-    [isLoading, setIsLoading] = useState<boolean>(false);
-
+    [isLoading, setIsLoading] = useState<boolean>(false),
+    [buscaLdng, setBuscaLdng] = useState<boolean>(false);
   useEffect(() => {
-    buscarProdutos(valorBusca).then((res) => setProdutosBusca(res.data));
+    setBuscaLdng(true);
+    buscarProdutos(valorBusca).then((res) => {setProdutosBusca(res.data);console.log(buscaLdng)}).finally(()=>{setBuscaLdng(false);console.log(buscaLdng)});
   }, [valorBusca]);
 
   const adicionarItem = (item: ItemVenda) => {
@@ -46,15 +47,16 @@ export default function VendaPage() {
         }}
       />
       <div style={{marginTop: 10}}>
-      <ListaProdutos
+        <ListaProdutos
         produtos={produtosBusca}
         adicionar={adicionarItem}
         venda={venda}
         
         />
-        {produtosBusca.length == 0 && valorBusca ? `Nenhum produto com "${valorBusca}" encontrado.` : ""}
+        { buscaLdng ? <Loader /> : ""}
       </div>
-      <ListaItens venda={venda} finalizarVenda={finalizarVenda} loading={isLoading} removerItem={removerItem} setVenda={setVenda}/>
+      <ListaItens venda={venda} removerItem={removerItem} setVenda={setVenda}/>
+      <FinalizarForm venda={venda} setVenda={setVenda}/>
     </div>
   );
 }

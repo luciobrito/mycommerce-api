@@ -1,5 +1,7 @@
+import { BsTrash3Fill } from "react-icons/bs";
 import { Venda } from "../../../services/vendaService";
 import { Button, NumberInput, Text, Title } from "@mantine/core";
+import "./venda.scss";
 export default function ListaItens({
   venda,
   removerItem,
@@ -9,28 +11,65 @@ export default function ListaItens({
   removerItem: any;
   setVenda: any;
 }) {
-  const mudarQuantidade = (id : number | undefined, quantidade : number) =>{
-    var index = venda.itens.findIndex(i => i.idProduto == id)    
-    setVenda({...venda}, venda.itens[index].quantidade = quantidade)
-  }
+  const mudarQuantidade = (id: number | undefined, quantidade:any) => {
+    var index = venda.itens.findIndex((i) => i.idProduto == id);
+    setVenda({ ...venda }, (venda.itens[index].quantidade = quantidade));
+  };
   return (
-    <div className="lista-itens-venda">
+    <div>
       <Title>Finalização</Title>
-   
+      <Title order={3}>Itens:</Title>
+      <div className="lista">
         {venda.itens.map((item) => (
-         <>
-            <Text>{item.produto.nome}</Text>
-            <NumberInput label="Quantidade" min={1} defaultValue={1} allowDecimal={false} max={item.produto.quantidadeEstoque} onChange={(e) => {mudarQuantidade(item.idProduto, parseInt(e.valueOf.toString()))}}/>
-            <Button
-              bg={"red"}
-              onClick={() => {
-                removerItem(item.idProduto);
+          <>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "end",
+                justifyContent: "space-between",
+                gap: 10,
               }}
             >
-              -
-            </Button>
-        </>
+              <div>
+                <Text>
+                  {item.produto.nome} × {item.quantidade}{" "}
+                </Text>
+                <Text>R${item.quantidade * item.produto.preco}</Text>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  width: "50%",
+                  alignItems: "end",
+                  gap: 10,
+                }}
+              >
+                <NumberInput
+                  label="Quantidade"
+                  min={1}
+                  clampBehavior={"strict"}
+                  defaultValue={item.quantidade}
+                  allowDecimal={false}
+                  max={item.produto.quantidadeEstoque}
+                  onChange={(valor) => {
+                    mudarQuantidade(item.idProduto, valor == "" ? 1 : valor);
+                  }}
+                />
+                <Button
+                  bg={"red"}
+                  onClick={() => {
+                    removerItem(item.idProduto);
+                  }}
+                >
+                  <BsTrash3Fill />
+                </Button>
+              </div>
+            </div>
+          </>
         ))}
+        <Title order={3}>Total</Title>
+      </div>
     </div>
   );
 }

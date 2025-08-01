@@ -1,39 +1,52 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { buscarProdutos, Produto } from "../../../services/produtoService";
 import { ItemVenda, postVenda, Venda } from "../../../services/vendaService";
 import ListaProdutos from "./listaProdutos";
 import ListaItens from "./listaItens";
-import "./venda.scss"
+import "./venda.scss";
 import { Loader, TextInput, Title } from "@mantine/core";
 import FinalizarForm from "./FinalizarForm";
 export default function VendaPage() {
   const [produtosBusca, setProdutosBusca] = useState<Produto[]>([]),
     [valorBusca, setValorBusca] = useState<string>(""),
-    [venda, setVenda] = useState<Venda>({itens: [], dataVenda: "", desconto: 0, formaPagamento: ""}),
-    [isLoading, setIsLoading] = useState<boolean>(false),
+    [venda, setVenda] = useState<Venda>({
+      itens: [],
+      dataVenda: new Date().toISOString(),
+      desconto: 0,
+      formaPagamento: "",
+    }),
     [buscaLdng, setBuscaLdng] = useState<boolean>(false);
+    let timer:number;
   useEffect(() => {
-    setBuscaLdng(true);
-    buscarProdutos(valorBusca).then((res) => {setProdutosBusca(res.data);console.log(buscaLdng)}).finally(()=>{setBuscaLdng(false);console.log(buscaLdng)});
+    timer = setTimeout(() => {
+          setBuscaLdng(true);
+    buscarProdutos(valorBusca)
+      .then((res) => {
+        setProdutosBusca(res.data);
+        console.log(buscaLdng);
+      })
+      .finally(() => {
+        setBuscaLdng(false);
+        console.log(buscaLdng);
+      });
+    },300);
+
   }, [valorBusca]);
 
   const adicionarItem = (item: ItemVenda) => {
-    var vendaObj = {...venda};
+    var vendaObj = { ...venda };
     vendaObj.itens.push(item);
-    setVenda(vendaObj)
+    setVenda(vendaObj);
   };
 
-  const removerItem = (id : number) =>{
-    var vendaObj = {...venda}
-    var index = vendaObj.itens.findIndex(x => x.idProduto == id)
-    vendaObj.itens.splice(index,1)
-    setVenda(vendaObj)
-  }
-  //localStorage.setItem("ItemVenda", JSON.stringify(itensVenda));
-  
-  const finalizarVenda = () => {
-    postVenda(venda, setIsLoading)
+  const removerItem = (id: number) => {
+    var vendaObj = { ...venda };
+    var index = vendaObj.itens.findIndex((x) => x.idProduto == id);
+    vendaObj.itens.splice(index, 1);
+    setVenda(vendaObj);
   };
+  //localStorage.setItem("ItemVenda", JSON.stringify(itensVenda));
+
   console.log(venda);
   return (
     <div className="containerVenda">
@@ -43,20 +56,20 @@ export default function VendaPage() {
         size="md"
         placeholder="Busca por nome ou código"
         onChange={(e) => {
+             clearTimeout(timer)
           setValorBusca(e.target.value);
         }}
       />
-      <div style={{marginTop: 10}}>
+      <div style={{ marginTop: 10 }}>
         <ListaProdutos
-        produtos={produtosBusca}
-        adicionar={adicionarItem}
-        itens={venda.itens}
-        
+          produtos={produtosBusca}
+          adicionar={adicionarItem}
+          itens={venda.itens}
         />
-        { buscaLdng ? <Loader /> : ""}
+        {buscaLdng ? <Loader /> : ""}
       </div>
-      <ListaItens venda={venda} removerItem={removerItem} setVenda={setVenda}/>
-      <FinalizarForm venda={venda} setVenda={setVenda}/>
+      <ListaItens venda={venda} removerItem={removerItem} setVenda={setVenda} />
+      <FinalizarForm venda={venda} setVenda={setVenda} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { buscarProdutos, Produto } from "../../../services/produtoService";
-import { ItemVenda, postVenda, Venda } from "../../../services/vendaService";
+import { defaultVenda, ItemVenda, Venda } from "../../../services/vendaService";
 import ListaProdutos from "./listaProdutos";
 import ListaItens from "./listaItens";
 import "./venda.scss";
@@ -9,12 +9,7 @@ import FinalizarForm from "./FinalizarForm";
 export default function VendaPage() {
   const [produtosBusca, setProdutosBusca] = useState<Produto[]>([]),
     [valorBusca, setValorBusca] = useState<string>(""),
-    [venda, setVenda] = useState<Venda>({
-      itens: [],
-      dataVenda: new Date().toISOString(),
-      desconto: 0,
-      formaPagamento: "",
-    }),
+    [venda, setVenda] = useState<Venda>(defaultVenda),
     [buscaLdng, setBuscaLdng] = useState<boolean>(false);
     let timer:number;
   useEffect(() => {

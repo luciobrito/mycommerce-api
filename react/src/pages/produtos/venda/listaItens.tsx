@@ -1,6 +1,6 @@
 import { BsTrash3Fill } from "react-icons/bs";
 import { Venda } from "../../../services/vendaService";
-import { Button, NumberInput, Text, Title } from "@mantine/core";
+import { Button, Divider, NumberInput, Text, Title } from "@mantine/core";
 import "./venda.scss";
 export default function ListaItens({
   venda,
@@ -15,6 +15,8 @@ export default function ListaItens({
     var index = venda.itens.findIndex((i) => i.idProduto == id);
     setVenda({ ...venda }, (venda.itens[index].quantidade = quantidade));
   };
+  var total = 0; 
+  venda.itens.forEach(x=>{total += x.quantidade * x.valor_unitario})
   return (
     <div>
       <Title>Finalização</Title>
@@ -27,14 +29,14 @@ export default function ListaItens({
                 display: "flex",
                 alignItems: "end",
                 justifyContent: "space-between",
-                gap: 10,
+                
               }}
             >
               <div>
                 <Text>
                   {item.produto.nome} × {item.quantidade}{" "}
                 </Text>
-                <Text>R${item.quantidade * item.produto.preco}</Text>
+                <Text>R$ {item.quantidade * item.produto.preco}</Text>
               </div>
               <div
                 style={{
@@ -42,7 +44,7 @@ export default function ListaItens({
                   flexDirection: "row",
                   width: "50%",
                   alignItems: "end",
-                  gap: 10,
+                  gap: 5,
                 }}
               >
                 <NumberInput
@@ -64,12 +66,17 @@ export default function ListaItens({
                 >
                   <BsTrash3Fill />
                 </Button>
+                
               </div>
+                  
             </div>
+            
           </>
         ))}
-        <Title order={3}>Total</Title>
       </div>
+        <Divider/>
+      <Title order={3}>Total:</Title>
+      <Text>R$ {total}</Text>
     </div>
   );
 }

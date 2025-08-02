@@ -1,8 +1,9 @@
-import { Button, NativeSelect, NumberInput, Text } from "@mantine/core";
+import { Button, NativeSelect, Notification, NumberInput } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
 import { useState } from "react";
-import { postVenda, Venda } from "../../../services/vendaService";
+import { getTotal, postVenda, Venda } from "../../../services/vendaService";
 import "./finalizarForm.scss";
+import {  BsCheckLg } from "react-icons/bs";
 export default function FinalizarForm({
   venda,
   setVenda,
@@ -11,16 +12,25 @@ export default function FinalizarForm({
   setVenda: any;
 }) {
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const d = new Date();
   const date = `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()}`;
   const formasPagamento = ["Pix", "Credito", "Debito", "Dinheiro Fisico"];
+  const total = getTotal(venda)
   const finalizarVenda = () => {
     setLoading(true);
-    postVenda(venda, setLoading);
+    postVenda(venda, setLoading, setSuccess, clearVenda);
+    setTimeout(()=>{setSuccess(false)},10000)
   };
+  const clearVenda = () => {setVenda((x : Venda)=>({...x,...{itens:[]}}))}
+  const updateVenda = (obj:any) => {
+    setVenda({...venda},obj)
+  }
   return (
     <>
-      <Text>Total</Text>
+    {/*Mudar valor da venda para o backend */}
+    {success && <Notification icon={<BsCheckLg/>} title="Venda registrada com sucesso!" color="teal">No valor de R$ {total}</Notification>}
+    
       <div id="form-container">
         <div id="pag-data">
           <NativeSelect
@@ -40,22 +50,18 @@ export default function FinalizarForm({
             className="form-item"
             valueFormat="DD/MM/YYYY"
             defaultValue={date}
-            onChange={(e) => {
-              setVenda(
-                { ...venda },
-                (venda.dataVenda = new Date(e ?? date).toISOString())
-              );
-            }}
+            onChange={(e) => {updateVenda((venda.dataVenda = new Date(e ?? date).toISOString()))}}
           />
         </div>
         <NumberInput
           defaultValue={0}
+          min={0}
+          clampBehavior={"strict"}
+          max={total}
           label="Desconto"
           prefix="R$"
           className="form-item"
-          onChange={(e) => {
-            setVenda({ ...venda }, (venda.desconto = parseFloat(e.toString())));
-          }}
+          onChange={(e) => {updateVenda((venda.desconto = e == "" ? 0 : parseFloat(e.toString())))}}
         />
       </div>
       <Button
@@ -68,6 +74,7 @@ export default function FinalizarForm({
       >
         Finalizar venda
       </Button>
+      
     </>
   );
 }

@@ -8,6 +8,10 @@ import io.github.luciobrito.mycommerce.Services.EstatisticasService;
 import io.github.luciobrito.mycommerce.Services.VendaService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +26,8 @@ public class VendaController {
     @Autowired
     EstatisticasService estatisticasService;
     @GetMapping
-    public List<Venda> getVendas(){ return vendaService.getAll();}
+    public PagedModel<Venda> getVendas(Pageable pageable){
+        return new PagedModel<>( vendaService.getAll(PageRequest.of(pageable.getPageNumber(),10)));}
     @PostMapping
     public ResponseEntity<Venda> novaVenda(@RequestBody VendaDTO vendaDTO){
         Venda venda = new Venda();

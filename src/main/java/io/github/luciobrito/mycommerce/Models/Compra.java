@@ -1,6 +1,7 @@
 package io.github.luciobrito.mycommerce.Models;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +22,7 @@ public class Compra implements Serializable {
     public int id;
     @Column(name = "data_compra")
     private LocalDateTime dataCompra;
+    @JsonProperty("itens")
     @OneToMany(mappedBy = "compra")
     private Set<ProdutoCompra> produtosCompra;
     @CreationTimestamp

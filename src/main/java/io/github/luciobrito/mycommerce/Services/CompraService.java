@@ -4,11 +4,15 @@ import io.github.luciobrito.mycommerce.DTOs.ProdutoCompraDTO;
 import io.github.luciobrito.mycommerce.Models.Compra;
 import io.github.luciobrito.mycommerce.Models.Produto;
 import io.github.luciobrito.mycommerce.Models.ProdutoCompra;
+import io.github.luciobrito.mycommerce.Models.Venda;
 import io.github.luciobrito.mycommerce.Repositories.CompraRepo;
 import io.github.luciobrito.mycommerce.Repositories.ProdutoCompraRepo;
 import io.github.luciobrito.mycommerce.Repositories.ProdutoRepo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,10 +45,14 @@ public class CompraService {
        }
         return compra;
     }
-public List<Compra> getAll(){
-        return compraRepo.findAll();
+public Page<Compra> getAll(int pageNumber){
+        return compraRepo.findAll(PageRequest.of(pageNumber,6));
 }
 public Optional<Compra> getById(int id){
         return compraRepo.findById(id);
 }
+    public Page<Compra> getTeste(Pageable pageable){
+
+        return compraRepo.findAll(pageable);
+    }
 }

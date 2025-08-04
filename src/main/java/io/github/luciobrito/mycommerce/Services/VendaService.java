@@ -9,6 +9,9 @@ import io.github.luciobrito.mycommerce.Repositories.ProdutoVendaRepo;
 import io.github.luciobrito.mycommerce.Repositories.VendaRepo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,6 +42,7 @@ public class VendaService {
         });
         return venda;
     }
-    public List<Venda> getAll() {return vendaRepo.findAll();}
+    public Page<Venda> getAll(Pageable pageable) {
+        return vendaRepo.findAll(pageable);}
 
 }

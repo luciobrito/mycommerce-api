@@ -3,9 +3,16 @@ package io.github.luciobrito.mycommerce.Controllers;
 import io.github.luciobrito.mycommerce.DTOs.CompraDTO;
 import io.github.luciobrito.mycommerce.Models.Compra;
 import io.github.luciobrito.mycommerce.Models.ProdutoCompra;
+import io.github.luciobrito.mycommerce.Models.Venda;
 import io.github.luciobrito.mycommerce.Services.CompraService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedModel;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +30,9 @@ public class CompraController {
     CompraService compraService;
 
     @GetMapping
-    public List<Compra> getCompra(){
-        return compraService.getAll();
+    public PagedModel<Compra> getCompra(Pageable pageable){
+
+        return new PagedModel<>(compraService.getTeste(PageRequest.of(pageable.getPageNumber(),6)));
     }
     @PostMapping
     public ResponseEntity<Compra> novaCompra(@RequestBody CompraDTO compraDTO){

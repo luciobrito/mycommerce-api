@@ -1,6 +1,8 @@
 package io.github.luciobrito.mycommerce.security;
 
+import io.github.luciobrito.mycommerce.Models.LoginAttempt;
 import io.github.luciobrito.mycommerce.Models.User;
+import io.github.luciobrito.mycommerce.Repositories.LoginAttemptRepo;
 import io.github.luciobrito.mycommerce.Repositories.UserRepo;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -22,7 +24,6 @@ public class SecurityFilter extends OncePerRequestFilter {
     TokenService tokenService;
     @Autowired
     UserRepo userRepo;
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = recoverToken(request);
@@ -42,4 +43,5 @@ public class SecurityFilter extends OncePerRequestFilter {
         //Lembrar do espaço após Bearer
         return authHeader.replace("Bearer ","");
     }
+
 }

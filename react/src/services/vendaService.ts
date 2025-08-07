@@ -14,9 +14,10 @@ export interface ItemVenda {
     valor_unitario : number,
     produto : Produto
 }
-export interface Err {
+export interface Err extends Venda{
     isLoading : boolean
 }
+
 export const defaultVenda : Venda ={
       itens: [],
       dataVenda: new Date().toISOString(),
@@ -38,3 +39,5 @@ const url = import.meta.env.VITE_API_URL + "/venda"
 export const postVenda = (venda : Venda, update : (isLoading: boolean) => void, success : any, setVenda: any) => {
     axios.post(url, venda).then(()=>{success(true); setVenda()}).catch().finally(()=> {update(false)});
 }
+
+export const getVenda = (page : number) => axios.get(`${url}?page=${page}`)

@@ -1,0 +1,38 @@
+$btnRemoverWidth : 20%;
+@media only screen and (min-width: 600px) {
+  .lista {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  .itens-container {
+    display: grid;
+  }
+  .item-container {
+     .btn-remover {
+    width: $btnRemoverWidth - 10%;
+    align-self: flex-end;
+}
+  }
+
+}
+.item-container {
+  display: flex;
+  flex-direction: column;
+  
+  @media only screen and (max-width: 600px){
+.btn-remover {
+    width: $btnRemoverWidth;
+    align-self: flex-end;
+  }
+         
+}
+ 
+
+}
+.valor-quantidade {
+  display: flex;
+  align-items: end;
+  gap: 0.5rem;
+}

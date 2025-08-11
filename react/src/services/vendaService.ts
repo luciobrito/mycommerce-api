@@ -24,9 +24,9 @@ export const defaultVenda : Venda ={
       desconto: 0,
       formaPagamento: "Pix",
     }
-export function getTotal(venda : Venda) : number{
+export function getTotal(itens : ItemVenda[]) : number{
     var total = 0;
-    venda.itens.forEach(x=> total+= x.valor_unitario * x.quantidade)
+    itens.forEach(x=> total+= x.valor_unitario * x.quantidade)
     return total;
 }
 export function getItemVendaStorage(): ItemVenda[]{

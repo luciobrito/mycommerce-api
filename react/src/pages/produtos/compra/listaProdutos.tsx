@@ -6,10 +6,12 @@ export default function ListaProdutos(
   { produtos, addItem, itens }: { produtos: Produto[], addItem: any, itens: ItemCompra[] }) {
 
   return (
-    <div>
+    <div className="lista">
         {produtos.map((item) => {
           return (
+            <div key={item.id}>
             <ProdutoItem adicionar={addItem} itens={itens} parent="compra" produto={item}/>
+            </div>
           );
         })}
           </div>

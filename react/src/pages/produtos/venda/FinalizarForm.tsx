@@ -4,6 +4,7 @@ import { useState } from "react";
 import { getTotal, postVenda, Venda } from "../../../services/vendaService";
 import "./finalizarForm.scss";
 import {  BsCheckLg } from "react-icons/bs";
+import { getCurrentDate } from "../../../services/dateFormat";
 export default function FinalizarForm({
   venda,
   setVenda,
@@ -13,10 +14,9 @@ export default function FinalizarForm({
 }) {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const d = new Date();
-  const date = `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()}`;
+  const date = getCurrentDate(new Date());
   const formasPagamento = ["Pix", "Credito", "Debito", "Dinheiro Fisico"];
-  const total = getTotal(venda)
+  const total = getTotal(venda.itens)
   const finalizarVenda = () => {
     setLoading(true);
     postVenda(venda, setLoading, setSuccess, clearVenda);

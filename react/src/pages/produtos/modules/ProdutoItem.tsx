@@ -56,7 +56,7 @@ export default function ProdutoItem({
           </Text>
         </div>
         <div className="produto-botao-preco">
-          <Text>R${produto.preco}</Text>
+          <Text>R${produto.preco.toFixed(2)}</Text>
           <Button
             disabled={
               (produto.quantidadeEstoque == 0 && parent == "venda") ||

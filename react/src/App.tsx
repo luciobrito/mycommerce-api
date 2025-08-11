@@ -1,10 +1,7 @@
 import AppBar from './modules/AppBar'
 
 function App() {
-  return <>
-    <AppBar/>
-    
-    </>
+  return <><AppBar/></>
 }
 
 export default App

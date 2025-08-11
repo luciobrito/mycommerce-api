@@ -23,7 +23,7 @@ export default function ListaItens({
       <Title order={3}>Itens:</Title>
       <div className="lista">
         {venda.itens.map((item) => (
-          <>
+          <div key={item.idProduto}>
             <div
               style={{
                 display: "flex",
@@ -33,10 +33,10 @@ export default function ListaItens({
               }}
             >
               <div>
-                <Text>
+                <Text fw={500}>
                   {item.produto.nome} × {item.quantidade}{" "}
                 </Text>
-                <Text>R$ {item.quantidade * item.produto.preco}</Text>
+                <Text>R$ {(item.quantidade * item.produto.preco).toFixed(2)}</Text>
               </div>
               <div
                 style={{
@@ -70,13 +70,13 @@ export default function ListaItens({
               </div>
                   
             </div>
+            <Divider style={{marginTop:10}}/>
             
-          </>
+          </div>
         ))}
       </div>
-        <Divider/>
       <Title order={3}>Total:</Title>
-      <Text>R$ {total}</Text>
+      <Text>R$ {total.toFixed(2)}</Text>
     </div>
   );
 }

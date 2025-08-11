@@ -7,9 +7,9 @@ export default function CadastroProduto({close}: {close : any}) {
         [error, setError] = useState<any>({nome:"",descricao:"",codigoBarra:"",preco: ""}),
         [loading, setLoading] = useState(false),
     submit = () => {
+      setLoading(true)
       postProduto(produto).then(() => {
         console.log("Cadastrado com sucesso!");
-        setLoading(true)
       }).catch((res)=>{console.log(res.response.data); setError(res.response.data)})
       .finally(()=>{setLoading(false)});
     };
@@ -33,11 +33,12 @@ export default function CadastroProduto({close}: {close : any}) {
             setProduto({...produto, codigoBarra: e.target.value});
           }}
           error={error.codigoBarra}
-          ref={inputRef}
+          
           type="text"
         />
         <TextInput
           label="Preço"
+          leftSection={"R$"}
           defaultValue={0}
           placeholder="12.99"
           onChange={(e) => {

@@ -5,19 +5,27 @@ import {
   ItemCompra,
   postCompra,
 } from "../../../services/compraService";
-
+import "./compra.scss"
 import ListaItens from "./listaItens";
 import CadastroProduto from "../cadastro/cadastro";
 import ListaProdutos from "./listaProdutos";
-import { Button, Modal, Text, TextInput, Title } from "@mantine/core";
+import { Button, Loader, Modal, Text, TextInput, Title } from "@mantine/core";
+import FinalizarCompra from "./FinalizarCompra";
 
 export default function CompraPage() {
   const [produtosBusca, setProdutosBusca] = useState<Produto[]>([]);
   const [valorBusca, setValorBusca] = useState("");
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const [compra, setCompra] = useState<Compra>({dataCompra:"",desconto:0,itens:[]})
+  const [compra, setCompra] = useState<Compra>(JSON.parse(localStorage.getItem("compra") ?? JSON.stringify({dataCompra:"",desconto:0,itens:[]})))
+  const [buscaLdng, setBuscaLdng] = useState<boolean>(false)
+  let timer : number;
+  localStorage.setItem("compra", JSON.stringify(compra));
   useEffect(() => {
-    buscarProdutos(valorBusca).then((res) => setProdutosBusca(res.data));
+    timer = setTimeout(()=>{
+      setBuscaLdng(true)
+      buscarProdutos(valorBusca).then((res) => setProdutosBusca(res.data)).finally(()=>{setBuscaLdng(false)});
+    },300)
+    
   }, [valorBusca]);
   const adicionarItem = (item : ItemCompra) => {
     var compraObj = {...compra}
@@ -40,21 +48,25 @@ export default function CompraPage() {
       <Title>Nova Compra</Title>
       <TextInput
         label="Buscar produtos"
+        size="md"
+        placeholder="Busca por nome ou código de barra"
         onChange={(e) => {
+          clearTimeout(timer)
           setValorBusca(e.target.value);
         }}
       />
-      <Button onClick={()=>{setModalOpen(true)}}>Cadastrar</Button>
+      <Button onClick={()=>{setModalOpen(true)}}>Novo Produto</Button>
       <Modal opened={modalOpen} onClose={()=>{setModalOpen(false)}} title={<Text fw={700} size="xl">Cadastrar um novo produto</Text>} centered size={"lg"}>
           <CadastroProduto close={()=>{setModalOpen(false)}}/>
         </Modal>
       <ListaProdutos addItem={adicionarItem} itens={compra.itens} produtos={produtosBusca}/>
-      <Title>Lista de produtos:</Title>
+      {buscaLdng ? <Loader /> : ""}
+      <Title>Finalização</Title>
       <ListaItens
         itens={compra.itens}   
-        finalizarCompra={finalizarCompra}
         removerItem={removerItem}
       />
+      <FinalizarCompra itens={compra.itens} finalizarCompra={finalizarCompra}/>
     </div>
   );
 }

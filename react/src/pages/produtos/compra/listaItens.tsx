@@ -1,34 +1,37 @@
+import { FaTrash } from "react-icons/fa6";
 import { ItemCompra } from "../../../services/compraService";
-import { Button, NumberInput, Text } from "@mantine/core";
-
+import { Button, Divider, NumberInput, Text, Title } from "@mantine/core";
+import "./compra.scss"
 export default function ListaItens({
   itens,
-  finalizarCompra,
   removerItem
 }: {
   itens: ItemCompra[];
-  finalizarCompra: any;
   removerItem: any
 }) {
   return (
     <div>
+      <Title order={3}>Itens:</Title>
+      <div className="lista">
         {itens.map((item) => (
-            <div>
-              <Text>{item.produto.nome}</Text>
-              <NumberInput label="Valor unitário"/>
-              <NumberInput label="Quantidade" defaultValue={item.quantidade}/>
-              <Button color="red" onClick={()=>removerItem(item.idProduto)}>-</Button>
+            <div key={item.idProduto}>
+              <div className="item-container">
+                <div style={{display:"flex", alignItems:'baseline', gap:7}}>
+              <Text fw={500} size="lg"  >{item.produto.nome}</Text>
+              <Text>R${item.produto.preco.toFixed(2)}</Text>
+              </div>
+              <Text>Lucro estimado: (VU - P) * qnt</Text>
+              <div className="valor-quantidade">
+              <NumberInput size="md" min={0} clampBehavior="strict" max={item.produto.preco} label="Valor unitário" leftSection={"R$"}/>
+              <NumberInput size="md" min={1} clampBehavior="strict" max={100} label="Quantidade" defaultValue={item.quantidade}/>
+              <Button color="red"  className="btn-remover" onClick={()=>removerItem(item.idProduto)}><FaTrash/></Button>
+              </div>
+              </div>
+              <Divider style={{marginTop:10}}/>
             </div>
           
-        ))}
-      <Button
-        variant="contained"
-        onClick={() => {
-          finalizarCompra();
-        }}
-      >
-        Finalizar
-      </Button>
+        ))}</div>
+
     </div>
   );
 }

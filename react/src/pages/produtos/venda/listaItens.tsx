@@ -76,7 +76,7 @@ export default function ListaItens({
         ))}
       </div>
       <Title order={3}>Total:</Title>
-      <Text>R$ {total.toFixed(2)}</Text>
+      <Text>{total.toLocaleString('pt-BR', {style:'currency', currency:'BRL'})}</Text>
     </div>
   );
 }

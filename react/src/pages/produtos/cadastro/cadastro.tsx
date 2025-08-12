@@ -1,25 +1,29 @@
 import { useState } from "react";
-import { useMask } from '@react-input/mask';
 import { postProduto, Produto } from "../../../services/produtoService";
-import { Button, TextInput } from "@mantine/core";
+import { Button, Notification, TextInput } from "@mantine/core";
 export default function CadastroProduto({close}: {close : any}) {
   const [produto, setProduto] = useState<Omit<Produto, "id">>({nome:"",descricao:"",codigoBarra:"",preco:0,}),
         [error, setError] = useState<any>({nome:"",descricao:"",codigoBarra:"",preco: ""}),
         [loading, setLoading] = useState(false),
+        [success, setSuccess] = useState({status:false, name:""}),
     submit = () => {
       setLoading(true)
-      postProduto(produto).then(() => {
-        console.log("Cadastrado com sucesso!");
+      setError({})
+      postProduto(produto).then((response) => {
+        setSuccess({status: true, name:response.data.nome})
+        setProduto({nome:"",descricao:"",codigoBarra:"",preco:0})
       }).catch((res)=>{console.log(res.response.data); setError(res.response.data)})
       .finally(()=>{setLoading(false)});
+      setTimeout(()=>{setSuccess({status:false, name:""})},10000)
     };
-  const inputRef = useMask({mask:'000'})
+    
   return (
     <div className="container">
       <div className="formulario">
         <div className="formulario-content">
         <TextInput
           label="Nome"
+          value={produto.nome}
           placeholder="Batom vermelho"
           onChange={(e) => {
             setProduto({...produto, nome:e.target.value});
@@ -28,6 +32,7 @@ export default function CadastroProduto({close}: {close : any}) {
         />
         <TextInput
           label="Código de barra"
+          value={produto.codigoBarra}
           placeholder="00000"
           onChange={(e) => {
             setProduto({...produto, codigoBarra: e.target.value});
@@ -39,14 +44,16 @@ export default function CadastroProduto({close}: {close : any}) {
         <TextInput
           label="Preço"
           leftSection={"R$"}
-          defaultValue={0}
           placeholder="12.99"
           onChange={(e) => {
-            setProduto({...produto, preco: parseFloat(e.target.value)})
+            e.target.value = e.target.value.replace(',','').replace(/\D/g,'').replace(/(\d)(\d{2})$/,"$1,$2")
+            setProduto({...produto, preco: parseFloat(e.target.value.replace(',','.')) })
           }}
+          
           error={error.preco}
         />
         <TextInput
+          value={produto.descricao}
           label="Descrição"
           placeholder="Muito bom"
           onChange={(e) => {
@@ -68,6 +75,8 @@ export default function CadastroProduto({close}: {close : any}) {
         </Button>
         </div>
         </div>
+        {success.status && <Notification withCloseButton={false} color="green" title="Produto registrado com sucesso!">{success.name} foi registrado!</Notification>}
+        
       </div>
     </div>
   );

@@ -18,7 +18,7 @@ export default function ListaItens({
               <div className="item-container">
                 <div style={{display:"flex", alignItems:'baseline', gap:7}}>
               <Text fw={500} size="lg"  >{item.produto.nome}</Text>
-              <Text>R${item.produto.preco.toFixed(2)}</Text>
+              <Text>{item.produto.preco.toLocaleString('pt-BR', {style:'currency', currency:'BRL'})}</Text>
               </div>
               <Text>Lucro estimado: (VU - P) * qnt</Text>
               <div className="valor-quantidade">

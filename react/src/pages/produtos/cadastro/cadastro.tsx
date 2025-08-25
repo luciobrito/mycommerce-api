@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { postProduto, Produto } from "../../../services/produtoService";
 import { Button, Notification, TextInput } from "@mantine/core";
+import { currencyMask } from "../../../services/maskService";
 export default function CadastroProduto({close}: {close : any}) {
   const [produto, setProduto] = useState<Omit<Produto, "id">>({nome:"",descricao:"",codigoBarra:"",preco:0,}),
         [error, setError] = useState<any>({nome:"",descricao:"",codigoBarra:"",preco: ""}),
@@ -44,9 +45,11 @@ export default function CadastroProduto({close}: {close : any}) {
         <TextInput
           label="Preço"
           leftSection={"R$"}
-          placeholder="12.99"
+          defaultValue={"0,00"}
+          placeholder="12,99"
+          inputMode="numeric"
           onChange={(e) => {
-            e.target.value = e.target.value.replace(',','').replace(/\D/g,'').replace(/(\d)(\d{2})$/,"$1,$2")
+            e.target.value = currencyMask(e.target.value)
             setProduto({...produto, preco: parseFloat(e.target.value.replace(',','.')) })
           }}
           
@@ -60,7 +63,7 @@ export default function CadastroProduto({close}: {close : any}) {
             setProduto({...produto, descricao: e.target.value})
           }}
         />
-        <div className="botoes">
+        <div className="botoes" style={{display:"flex", gap:"0.5rem", marginTop:"0.5rem", justifyContent:"end"}}>
         <Button color="red" onClick={()=>{close()}}>
           Cancelar
         </Button>

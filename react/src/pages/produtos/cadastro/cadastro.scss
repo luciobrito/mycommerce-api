@@ -25,17 +25,9 @@
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
+
 }
-.botoes{
-    width: inherit;
-    display: flex;
-    flex-direction: row;
-    gap: 0.5rem;
-    flex-grow: 5;
-    Button {
-        width: 100%;
-    }
-}
+
 
 @media only screen and (max-width: 600px){
     .formulario {

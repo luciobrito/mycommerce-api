@@ -11,6 +11,7 @@ import CadastroProduto from "../cadastro/cadastro";
 import ListaProdutos from "./listaProdutos";
 import { Button, Loader, Modal, Text, TextInput, Title } from "@mantine/core";
 import FinalizarCompra from "./FinalizarCompra";
+import { toBrazilianReal } from "../../../services/maskService";
 
 export default function CompraPage() {
   const [produtosBusca, setProdutosBusca] = useState<Produto[]>([]);
@@ -18,6 +19,9 @@ export default function CompraPage() {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [compra, setCompra] = useState<Compra>(JSON.parse(localStorage.getItem("compra") ?? JSON.stringify({dataCompra:"",desconto:0,itens:[]})))
   const [buscaLdng, setBuscaLdng] = useState<boolean>(false)
+  var total : number = 0;
+  compra.itens.forEach(x => {total += x.valorUnitario * x.quantidade})
+
   let timer : number;
   localStorage.setItem("compra", JSON.stringify(compra));
   useEffect(() => {
@@ -38,6 +42,17 @@ export default function CompraPage() {
     compraObj.itens.splice(index,1)
     setCompra(compraObj)
   };
+  const updateCompra = (valor : Partial<Compra>) =>{
+    setCompra({...compra, ...valor})
+    console.log(compra)
+  }
+  const updateItem = (valor : Partial<ItemCompra>, id: number) =>{
+    var obj = {...compra}
+    var index = obj.itens.findIndex(x => x.idProduto == id)
+    obj.itens[index] = {...obj.itens[index], ...valor}
+    setCompra(obj)
+    console.log(compra)
+  }
   const finalizarCompra = () => {
     //Salvar alterações e esvaziar arrays
     postCompra(compra);
@@ -65,8 +80,11 @@ export default function CompraPage() {
       <ListaItens
         itens={compra.itens}   
         removerItem={removerItem}
+        updateItem={updateItem}
       />
-      <FinalizarCompra itens={compra.itens} finalizarCompra={finalizarCompra}/>
+            <Title order={3}>Total:</Title>
+      <Text size="lg">{toBrazilianReal(total)}</Text>
+      <FinalizarCompra itens={compra.itens} finalizarCompra={finalizarCompra} updateCompra={updateCompra}/>
     </div>
   );
 }

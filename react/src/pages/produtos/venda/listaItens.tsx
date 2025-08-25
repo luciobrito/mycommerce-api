@@ -2,6 +2,7 @@ import { BsTrash3Fill } from "react-icons/bs";
 import { Venda } from "../../../services/vendaService";
 import { Button, Divider, NumberInput, Text, Title } from "@mantine/core";
 import "./venda.scss";
+import { toBrazilianReal } from "../../../services/maskService";
 export default function ListaItens({
   venda,
   removerItem,
@@ -76,7 +77,7 @@ export default function ListaItens({
         ))}
       </div>
       <Title order={3}>Total:</Title>
-      <Text>{total.toLocaleString('pt-BR', {style:'currency', currency:'BRL'})}</Text>
+      <Text>{toBrazilianReal(total)}</Text>
     </div>
   );
 }

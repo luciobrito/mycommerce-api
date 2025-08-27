@@ -14,5 +14,5 @@ export interface ItemCompra {
 }
 
 export const postCompra = (compra : Compra) => {
-    return axios.post("http://localhost:8080/compra", compra);
+    return axios.post(import.meta.env.VITE_API_URL +"/compra", compra);
 }

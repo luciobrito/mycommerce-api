@@ -1,11 +1,22 @@
 import { Button, TextInput, Title } from "@mantine/core";
-import { ItemCompra } from "../../../services/compraService";
+import { ItemCompra, postCompra } from "../../../services/compraService";
 import {  DatePickerInput } from "@mantine/dates";
 import {  dataFutura, getCurrentDate } from "../../../services/dateFormat";
 import { currencyMask } from "../../../services/maskService";
+import { useState } from "react";
+
 
 export default function FinalizarCompra({itens, finalizarCompra, updateCompra}:{itens : ItemCompra[], finalizarCompra : any, updateCompra : any}){
+  const [loading, setLoading] = useState<boolean>(false);
   const date = getCurrentDate(new Date());
+    const finalizar = ()=> {
+      setLoading(true)
+      postCompra(JSON.parse(localStorage.getItem("Compra") ?? "{}"))
+      .then(res => {})
+      .catch(e => {})
+      .finally(()=>{setLoading(false)})
+}
+
     return <>
     
         <TextInput
@@ -37,8 +48,9 @@ export default function FinalizarCompra({itens, finalizarCompra, updateCompra}:{
         
         variant="contained"
         onClick={() => {
-          finalizarCompra();
+          finalizar();
         }}
+        loading={loading}
         disabled={itens.length == 0}
       >
         Finalizar

@@ -12,12 +12,13 @@ import ListaProdutos from "./listaProdutos";
 import { Button, Loader, Modal, Text, TextInput, Title } from "@mantine/core";
 import FinalizarCompra from "./FinalizarCompra";
 import { toBrazilianReal } from "../../../services/maskService";
+import { getCurrentDate } from "../../../services/dateFormat";
 
 export default function CompraPage() {
   const [produtosBusca, setProdutosBusca] = useState<Produto[]>([]);
   const [valorBusca, setValorBusca] = useState("");
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const [compra, setCompra] = useState<Compra>(JSON.parse(localStorage.getItem("compra") ?? JSON.stringify({dataCompra:"",desconto:0,itens:[]})))
+  const [compra, setCompra] = useState<Compra>(JSON.parse(localStorage.getItem("compra") ?? JSON.stringify({dataCompra:getCurrentDate(new Date()),desconto:0,itens:[]})))
   const [buscaLdng, setBuscaLdng] = useState<boolean>(false)
   var total : number = 0;
   compra.itens.forEach(x => {total += x.valorUnitario * x.quantidade})

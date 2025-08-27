@@ -1,5 +1,5 @@
 import { FaTrash } from "react-icons/fa6";
-import { ItemCompra } from "../../../services/compraService";
+import { ItemCompra, postCompra } from "../../../services/compraService";
 import {
   Button,
   Divider,
@@ -42,6 +42,7 @@ export default function ListaItens({
                 <TextInput
                   size="md"
                   defaultValue={item.valorUnitario}
+                  inputMode="numeric"
                   onChange={(e) => {
                     e.target.value = currencyMask(e.target.value);
                     if (

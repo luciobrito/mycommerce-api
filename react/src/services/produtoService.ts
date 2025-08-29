@@ -20,7 +20,7 @@ export const postProduto = (produto: Partial<Produto>) => {
   return axios.post(url, produto);
 };
 
-export const buscarProdutos = (valor : string) => {
-  var urlBusca = valor == "" ? "/-" : "/" + valor;
+export const buscarProdutos = (valor: string) => {
+  const urlBusca = valor == "" ? "/-" : "/" + valor;
   return axios.get(url + urlBusca);
-}
+};

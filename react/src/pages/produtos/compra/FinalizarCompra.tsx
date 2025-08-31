@@ -21,6 +21,8 @@ export default function FinalizarCompra({
 }) {
   const [loading, setLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
+  const [error, setError] = useState({desconto:""});
+  const dataCompra = JSON.parse(localStorage.getItem("compra") ?? "{}").dataCompra;
   const date = getCurrentDate(new Date());
   const finalizar = () => {
     setLoading(true);
@@ -29,16 +31,18 @@ export default function FinalizarCompra({
         console.log(res);
         localStorage.removeItem("compra");
         updateCompra(defaultCompra);
+        setSuccess(true)
       })
       .catch((e) => {})
       .finally(() => {
+        setTimeout(()=>{setSuccess(false)},5000)
         setLoading(false);
       });
   };
 
   return (
     <>
-      <SuccessNotification />
+      <SuccessNotification opened={success}/>
       <TextInput
         label="Desconto"
         leftSection={"R$"}
@@ -55,10 +59,10 @@ export default function FinalizarCompra({
         /*error={error.preco}*/
       />
       <DatePickerInput
-        label="Data da venda"
+        label="Data da compra"
         className="form-item"
         valueFormat="DD/MM/YYYY"
-        defaultValue={date}
+        defaultValue={dataCompra}
         dropdownType="modal"
         size="sm"
         excludeDate={(date) => dataFutura(date)}
@@ -67,16 +71,19 @@ export default function FinalizarCompra({
         }}
         /*onChange={(e) => {updateVenda((venda.dataVenda = new Date(e ?? date).toISOString()))}}*/
       />
+      <div style={{display:"flex", justifyContent:"center"}}>
       <Button
         variant="contained"
+        
         onClick={() => {
           finalizar();
         }}
+        style={{marginTop:10, width:"100%"}}
         loading={loading}
         disabled={itens.length == 0}
       >
         Finalizar
-      </Button>
+      </Button></div>
     </>
   );
 }

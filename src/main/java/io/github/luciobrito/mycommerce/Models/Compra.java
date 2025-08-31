@@ -2,6 +2,7 @@ package io.github.luciobrito.mycommerce.Models;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.github.luciobrito.mycommerce.exceptions.DescontoInvalido;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,7 +31,22 @@ public class Compra implements Serializable {
     @UpdateTimestamp
     private OffsetDateTime updated_at;
     private double desconto;
-    public Set<ProdutoCompra> getProdutosCompra(){
-        return this.produtosCompra;
+
+
+    public void setProdutosCompra(Set<ProdutoCompra> produtos){
+        if(desconto > getTotal(produtos)){
+            throw new DescontoInvalido("Valor do desconto maior do que total!");
+        }
+        else {
+            this.produtosCompra = produtos;
+        }
+    }
+
+    private double getTotal(Set<ProdutoCompra> produtos){
+        double total = 0;
+        for(ProdutoCompra produto : produtos){
+            total += (produto.getValorUnitario() * produto.getQuantidade());
+        }
+        return total;
     }
 }

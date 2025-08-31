@@ -1,6 +1,7 @@
 package io.github.luciobrito.mycommerce.Controllers;
 
 import io.github.luciobrito.mycommerce.DTOs.ExceptionFieldDTO;
+import io.github.luciobrito.mycommerce.exceptions.DescontoInvalido;
 import io.github.luciobrito.mycommerce.exceptions.ProdutoDuplicadoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> ProdutoDuplicadoException(ProdutoDuplicadoException e){
         validationObj = new HashMap<String,String>();
         validationObj.put(e.getField(),e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(validationObj);
+    }
+    @ExceptionHandler(DescontoInvalido.class)
+    public ResponseEntity<?> DescontoInvalidoException(DescontoInvalido e){
+        validationObj = new HashMap<>();
+        validationObj.put("desconto", e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(validationObj);
     }
 }

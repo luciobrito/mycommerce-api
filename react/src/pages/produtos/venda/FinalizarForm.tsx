@@ -62,8 +62,8 @@ export default function FinalizarForm({
           defaultValue={0}
           min={0}
           max={total}
+                  leftSection={"R$"}
           label="Desconto"
-          prefix="R$"
           className="form-item"
           onChange={(e) => {
             e.target.value = currencyMask(e.target.value)

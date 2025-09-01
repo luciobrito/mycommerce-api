@@ -32,8 +32,9 @@ export default function FinalizarCompra({
         localStorage.removeItem("compra");
         updateCompra(defaultCompra);
         setSuccess(true)
+        setError({desconto:""})
       })
-      .catch((e) => {})
+      .catch((res) => {setError(res.response.data); console.log(res.response.data)})
       .finally(() => {
         setTimeout(()=>{setSuccess(false)},5000)
         setLoading(false);
@@ -42,12 +43,13 @@ export default function FinalizarCompra({
 
   return (
     <>
-      <SuccessNotification opened={success}/>
+      <SuccessNotification message="Compra finalizada com sucesso!" opened={success}/>
       <TextInput
         label="Desconto"
         leftSection={"R$"}
         defaultValue={"0,00"}
         placeholder="12,99"
+        error={error.desconto}
         inputMode="numeric"
         onChange={(e) => {
           e.target.value = currencyMask(e.target.value);

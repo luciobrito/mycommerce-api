@@ -36,8 +36,7 @@ export function getItemVendaStorage(): ItemVenda[]{
 }
 const url = import.meta.env.VITE_API_URL + "/venda"
 
-export const postVenda = (venda : Venda, update : (isLoading: boolean) => void, success : any, setVenda: any) => {
-    axios.post(url, venda).then(()=>{success(true); setVenda()}).catch().finally(()=> {update(false)});
-}
+export const postVenda = (venda : Venda) => 
+    axios.post(url, venda)
 
 export const getVenda = (page : number) => axios.get(`${url}?page=${page}`)

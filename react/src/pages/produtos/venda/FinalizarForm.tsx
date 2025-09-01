@@ -1,10 +1,11 @@
-import { Button, NativeSelect, Notification, NumberInput } from "@mantine/core";
+import { Button, NativeSelect, NumberInput, TextInput } from "@mantine/core";
 import { DatePickerInput } from "@mantine/dates";
 import { useState } from "react";
-import { getTotal, postVenda, Venda } from "../../../services/vendaService";
+import { defaultVenda, getTotal, postVenda, Venda } from "../../../services/vendaService";
 import "./finalizarForm.scss";
-import {  BsCheckLg } from "react-icons/bs";
 import { getCurrentDate } from "../../../services/dateFormat";
+import SuccessNotification from "../modules/SuccessNotification";
+import { currencyMask } from "../../../services/maskService";
 export default function FinalizarForm({
   venda,
   setVenda,
@@ -19,18 +20,22 @@ export default function FinalizarForm({
   const total = getTotal(venda.itens)
   const finalizarVenda = () => {
     setLoading(true);
-    postVenda(venda, setLoading, setSuccess, clearVenda);
+    postVenda(venda)
+      .then(()=>{
+        setSuccess(true); 
+        updateVenda({itens:[]})})
+      .catch(()=>{})
+      .finally(()=>{setLoading(false)});
     setTimeout(()=>{setSuccess(false)},10000)
   };
-  const clearVenda = () => {setVenda((x : Venda)=>({...x,...{itens:[]}}))}
-  const updateVenda = (obj:any) => {
-    setVenda({...venda},obj)
+  const updateVenda = (obj: Partial<Venda>) => {
+    setVenda({...venda, ...obj})
+    console.log(venda)
   }
   return (
     <>
     {/*Mudar valor da venda para o backend */}
-    {success && <Notification icon={<BsCheckLg/>} title="Venda registrada com sucesso!" color="teal">No valor de R$ {total}</Notification>}
-    
+    <SuccessNotification message="Venda finalizada com sucesso!" opened={success} />
       <div id="form-container">
         <div id="pag-data">
           <NativeSelect
@@ -49,19 +54,20 @@ export default function FinalizarForm({
             label="Data da venda"
             className="form-item"
             valueFormat="DD/MM/YYYY"
-            defaultValue={date}
-            onChange={(e) => {updateVenda((venda.dataVenda = new Date(e ?? date).toISOString()))}}
+            defaultValue={venda.dataVenda}
+            onChange={(e) => {updateVenda({dataVenda: new Date(e ?? date).toISOString()})}}
           />
         </div>
-        <NumberInput
+        <TextInput
           defaultValue={0}
           min={0}
-          clampBehavior={"strict"}
           max={total}
           label="Desconto"
           prefix="R$"
           className="form-item"
-          onChange={(e) => {updateVenda((venda.desconto = e == "" ? 0 : parseFloat(e.toString())))}}
+          onChange={(e) => {
+            e.target.value = currencyMask(e.target.value)
+            updateVenda({desconto: e.target.value == "" ? 0 : parseFloat(e.target.value.replace(',','.'))})}}
         />
       </div>
       <Button

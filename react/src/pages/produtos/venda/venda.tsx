@@ -7,9 +7,10 @@ import "./venda.scss";
 import { Loader, TextInput, Title } from "@mantine/core";
 import FinalizarForm from "./FinalizarForm";
 export default function VendaPage() {
+  const storedVenda = JSON.parse(localStorage.getItem("venda") ?? JSON.stringify(defaultVenda));
   const [produtosBusca, setProdutosBusca] = useState<Produto[]>([]),
     [valorBusca, setValorBusca] = useState<string>(""),
-    [venda, setVenda] = useState<Venda>(defaultVenda),
+    [venda, setVenda] = useState<Venda>(storedVenda),
     [buscaLdng, setBuscaLdng] = useState<boolean>(false);
     let timer:number;
   useEffect(() => {
@@ -26,8 +27,8 @@ export default function VendaPage() {
       });
     },300);
 
-  }, [valorBusca]);
-
+  }, [valorBusca, venda]);
+localStorage.setItem("venda", JSON.stringify(venda))
   const adicionarItem = (item: ItemVenda) => {
     var vendaObj = { ...venda };
     vendaObj.itens.push(item);

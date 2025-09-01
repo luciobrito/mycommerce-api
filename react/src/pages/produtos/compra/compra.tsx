@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { buscarProdutos, Produto } from "../../../services/produtoService";
 import {
   Compra,
+  defaultCompra,
   ItemCompra,
   postCompra,
 } from "../../../services/compraService";
@@ -14,27 +15,19 @@ import FinalizarCompra from "./FinalizarCompra";
 import { toBrazilianReal } from "../../../services/maskService";
 
 export default function CompraPage() {
+  const storedCompra = JSON.parse(localStorage.getItem("venda") ?? JSON.stringify(defaultCompra)) 
   const [produtosBusca, setProdutosBusca] = useState<Produto[]>([]);
   const [valorBusca, setValorBusca] = useState("");
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const [compra, setCompra] = useState<Compra>(
-    JSON.parse(
-      localStorage.getItem("compra") ??
-        JSON.stringify({
-          dataCompra: new Date().toISOString(),
-          desconto: 0,
-          itens: [],
-        }),
-    ),
-  );
+  const [compra, setCompra] = useState<Compra>(storedCompra );
   const [buscaLdng, setBuscaLdng] = useState<boolean>(false);
+  localStorage.setItem("compra", JSON.stringify(compra));
   var total: number = 0;
   compra.itens.forEach((x) => {
     total += x.valorUnitario * x.quantidade;
   });
 
   let timer: number;
-  localStorage.setItem("compra", JSON.stringify(compra));
   useEffect(() => {
     timer = setTimeout(() => {
       setBuscaLdng(true);
@@ -44,7 +37,7 @@ export default function CompraPage() {
           setBuscaLdng(false);
         });
     }, 300);
-  }, [valorBusca]);
+  }, [valorBusca, compra]);
   const adicionarItem = (item: ItemCompra) => {
     var compraObj = { ...compra };
     compraObj.itens.push(item);
@@ -75,6 +68,14 @@ export default function CompraPage() {
   return (
     <div>
       <Title>Nova Compra</Title>
+            <Button
+      style={{marginTop:10, marginBottom:10}}
+        onClick={() => {
+          setModalOpen(true);
+        }}
+      >
+        Novo Produto +
+      </Button>
       <TextInput
         label="Buscar produtos"
         size="md"
@@ -84,13 +85,7 @@ export default function CompraPage() {
           setValorBusca(e.target.value);
         }}
       />
-      <Button
-        onClick={() => {
-          setModalOpen(true);
-        }}
-      >
-        Novo Produto
-      </Button>
+
       <Modal
         opened={modalOpen}
         onClose={() => {
@@ -115,7 +110,7 @@ export default function CompraPage() {
         itens={compra.itens}
         produtos={produtosBusca}
       />
-      {buscaLdng ? <Loader /> : ""}
+      {buscaLdng && <Loader /> }
       <Title>Finalização</Title>
       <ListaItens
         itens={compra.itens}

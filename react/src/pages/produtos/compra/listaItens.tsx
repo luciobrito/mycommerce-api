@@ -22,6 +22,7 @@ export default function ListaItens({
   return (
     <div>
       <Title order={3}>Itens:</Title>
+      {itens.length == 0 && <Text>Nenhum item na lista.</Text>}
       <div className="lista">
         {itens.map((item) => (
           <div key={item.idProduto}>

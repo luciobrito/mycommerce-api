@@ -27,7 +27,7 @@ public class VendaController {
     EstatisticasService estatisticasService;
     @GetMapping
     public PagedModel<Venda> getVendas(Pageable pageable){
-        return new PagedModel<>( vendaService.getAll(PageRequest.of(pageable.getPageNumber(),10)));}
+        return new PagedModel<>( vendaService.getAll(pageable));}
     @PostMapping
     public ResponseEntity<Venda> novaVenda(@RequestBody VendaDTO vendaDTO){
         Venda venda = new Venda();

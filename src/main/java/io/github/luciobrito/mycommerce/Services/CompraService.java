@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -48,8 +49,8 @@ public class CompraService {
             produtoRepo.save(item.getProduto());
         }
     }
-public Page<Compra> getAll(int pageNumber){
-        return compraRepo.findAll(PageRequest.of(pageNumber,6));
+public Page<Compra> getAll(Pageable pageable){
+        return compraRepo.findAll(pageable);
 }
 public Optional<Compra> getById(int id){
         return compraRepo.findById(id);

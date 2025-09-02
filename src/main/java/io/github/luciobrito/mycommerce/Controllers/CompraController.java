@@ -31,8 +31,7 @@ public class CompraController {
 
     @GetMapping
     public PagedModel<Compra> getCompra(Pageable pageable){
-
-        return new PagedModel<>(compraService.getTeste(PageRequest.of(pageable.getPageNumber(),6)));
+        return new PagedModel<>(compraService.getTeste(pageable));
     }
     @PostMapping
     public ResponseEntity<Compra> novaCompra(@RequestBody CompraDTO compraDTO){

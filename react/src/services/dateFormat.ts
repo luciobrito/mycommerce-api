@@ -4,3 +4,10 @@ export  const getCurrentDate  = (d : Date) : string => {
 export const dataFutura = (date : string) : boolean =>{
     return new Date(date) > new Date()
 }
+export  const dmyDate  = (d : Date) : string => {
+    return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
+}
+export  const dmyDateHour  = (d : Date) : string => {
+
+    return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()} ${d.getHours()}:${d.getMinutes().toString().padStart(2,'0')}`;
+}

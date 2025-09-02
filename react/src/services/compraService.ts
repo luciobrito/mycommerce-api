@@ -6,6 +6,7 @@ export interface Compra {
   itens: ItemCompra[];
   desconto: number;
   dataCompra: string;
+  created_at?: string
 }
 export interface ItemCompra {
   quantidade: number;
@@ -20,7 +21,7 @@ export const defaultCompra: Compra = {
 };
 const env = import.meta.env.VITE_API_URL
 export const getCompra = (page : number) => {
-  return axios.get(env + `/compra?page=${page-1}`)
+  return axios.get(env + `/compra?page=${page-1}&size=6&sort=id,desc`)
 }
 export const postCompra = (compra: Compra) => {
   return axios.post(import.meta.env.VITE_API_URL + "/compra", compra);

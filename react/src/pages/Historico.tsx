@@ -10,7 +10,7 @@ export default function Historico(){
     const [compra, setCompra] = useState<PageResponse<Compra>>(defaultPageResponse);
     const [activePage, setPage] = useState({compra: 0, venda:0})
     useEffect(()=>{
-        getCompra(activePage.compra).then((res)=>{setCompra(res.data); console.log(res.data)})
+        getCompra(activePage.compra).then((res)=>{setCompra(res.data); console.debug(res.data)})
     }, [activePage])
     return <>
     <Title>Histórico</Title>

@@ -27,7 +27,7 @@ export default function VendaPage() {
       });
     },300);
 
-  }, [valorBusca, venda]);
+  }, [valorBusca, venda.itens]);
 localStorage.setItem("venda", JSON.stringify(venda))
   const adicionarItem = (item: ItemVenda) => {
     var vendaObj = { ...venda };

@@ -6,4 +6,14 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public record ProdutoDTO (@NotBlank(message = "Nome não pode estar vazio") @NotNull(message = "Nome não pode ser nulo") String nome, String descricao, @Min(value = 0, message = "Valor não pode ser menor que 0") Double preco, @Column(name = "codigo_barra") @Size(min = 3, max = 13)  String codigoBarra) { }
+public record ProdutoDTO (
+        @NotBlank(message = "Nome não pode estar vazio")
+        @NotNull(message = "Nome não pode ser nulo")
+        String nome,
+        String descricao,
+        @Min(value = 0, message = "Valor não pode ser menor que 0")
+        Double preco,
+        @Column(name = "codigo_barra")
+        @Size(min = 3, max = 13,message = "Tamanho deve ser entre 3 e 13 caracteres.")
+        String codigoBarra
+) { }

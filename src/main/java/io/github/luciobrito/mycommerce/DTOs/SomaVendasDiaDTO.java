@@ -5,4 +5,5 @@ public interface SomaVendasDiaDTO {
     Integer getDia();
     Integer getMes();
     Integer getAno();
+    Integer getNumero();
 }

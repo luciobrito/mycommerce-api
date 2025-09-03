@@ -22,7 +22,7 @@ public class Venda {
     public Double desconto;
     @Column(name = "forma_pagamento")
     public String formaPagamento;
-    public LocalDateTime dataVenda;
+    //public LocalDateTime dataVenda;
 
     //Timestamps
     @CreationTimestamp

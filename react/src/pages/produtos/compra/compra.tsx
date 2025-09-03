@@ -37,7 +37,7 @@ export default function CompraPage() {
           setBuscaLdng(false);
         });
     }, 300);
-  }, [valorBusca, compra]);
+  }, [valorBusca, compra.itens]);
   const adicionarItem = (item: ItemCompra) => {
     var compraObj = { ...compra };
     compraObj.itens.push(item);

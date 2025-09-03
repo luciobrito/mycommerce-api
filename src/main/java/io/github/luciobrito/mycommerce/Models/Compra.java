@@ -21,8 +21,8 @@ public class Compra implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
-    @Column(name = "data_compra")
-    private LocalDateTime dataCompra;
+//    @Column(name = "data_compra")
+//    private LocalDateTime dataCompra;
     @JsonProperty("itens")
     @OneToMany(mappedBy = "compra")
     private Set<ProdutoCompra> produtosCompra;

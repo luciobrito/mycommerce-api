@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface ProdutoVendaRepo extends JpaRepository<ProdutoVenda,Integer> {
     @Query(value = "SELECT SUM(pv.valor_unitario * pv.quantidade) AS total, " +
-            "COUNT(v.id) as numero" +
+            "COUNT(v.id) as numero," +
             "DAY(v.created_at) AS dia, " + "MONTH(v.created_at) AS mes, " +
             "YEAR(v.created_at) AS ano " + "FROM produto_venda pv " +
             "INNER JOIN  vendas v ON v.id = pv.id_venda " +

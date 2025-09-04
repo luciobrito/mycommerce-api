@@ -49,14 +49,14 @@ export default function FinalizarForm({
               }));
               console.log(venda);
             }}
-          />
+          />{/* 
           <DatePickerInput
             label="Data da venda"
             className="form-item"
             valueFormat="DD/MM/YYYY"
             defaultValue={venda.dataVenda}
             onChange={(e) => {updateVenda({dataVenda: new Date(e ?? date).toISOString()})}}
-          />
+          />*/}
         </div>
         <TextInput
           defaultValue={0}

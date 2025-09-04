@@ -4,14 +4,15 @@ import { Produto } from "./produtoService";
 export interface Venda {
     id? : number,
     desconto : number,
+    created_at? : string,
     formaPagamento : string,
-    dataVenda : string,
     itens: ItemVenda[]
 }
 export interface ItemVenda {
     quantidade : number,
     idProduto? : number,
     valor_unitario : number,
+    valorUnitario : number,
     produto : Produto
 }
 export interface Err extends Venda{
@@ -20,13 +21,13 @@ export interface Err extends Venda{
 
 export const defaultVenda : Venda ={
       itens: [],
-      dataVenda: new Date().toISOString(),
       desconto: 0,
       formaPagamento: "Pix",
     }
-export function getTotal(itens : ItemVenda[]) : number{
+export function getTotal(itens : any[]) : number{
     var total = 0;
-    itens.forEach(x=> total+= x.valor_unitario * x.quantidade)
+    itens.forEach(x=> {x.valorUnitario = x.valor_unitario
+        total+= x.valorUnitario * x.quantidade})
     return total;
 }
 export function getItemVendaStorage(): ItemVenda[]{

@@ -5,7 +5,6 @@ export interface Compra {
   id?:number;
   itens: ItemCompra[];
   desconto: number;
-  dataCompra: string;
   created_at?: string
 }
 export interface ItemCompra {
@@ -17,8 +16,12 @@ export interface ItemCompra {
 export const defaultCompra: Compra = {
   itens: [],
   desconto: 0,
-  dataCompra: new Date().toISOString(),
 };
+export function getTotal(itens : any[]) : number{
+    var total = 0;
+    itens.forEach(x=> total+= x.valorUnitario * x.quantidade)
+    return total;
+}
 const env = import.meta.env.VITE_API_URL
 export const getCompra = (page : number) => {
   return axios.get(env + `/compra?page=${page-1}&size=6&sort=id,desc`)

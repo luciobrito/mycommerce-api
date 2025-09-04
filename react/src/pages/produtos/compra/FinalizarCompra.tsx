@@ -59,7 +59,7 @@ export default function FinalizarCompra({
         }}
 
         /*error={error.preco}*/
-      />
+      />{/*
       <DatePickerInput
         label="Data da compra"
         className="form-item"
@@ -71,8 +71,8 @@ export default function FinalizarCompra({
         onChange={(e) => {
           updateCompra({ dataCompra: new Date(e ?? date).toISOString() });
         }}
-        /*onChange={(e) => {updateVenda((venda.dataVenda = new Date(e ?? date).toISOString()))}}*/
-      />
+        onChange={(e) => {updateVenda((venda.dataVenda = new Date(e ?? date).toISOString()))}}
+      />    */}
       <div style={{display:"flex", justifyContent:"center"}}>
       <Button
         variant="contained"

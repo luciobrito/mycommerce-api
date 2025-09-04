@@ -12,7 +12,7 @@ export default function CadastroProduto({close}: {close : any}) {
       setError({})
       postProduto(produto).then((response) => {
         setSuccess({status: true, name:response.data.nome})
-        setProduto({nome:"",descricao:"",codigoBarra:"",preco:0})
+        setProduto({nome:"",descricao:"",codigoBarra:"",preco:produto.preco})
       }).catch((res)=>{console.log(res.response.data); setError(res.response.data)})
       .finally(()=>{setLoading(false)});
       setTimeout(()=>{setSuccess({status:false, name:""})},10000)
@@ -49,8 +49,10 @@ export default function CadastroProduto({close}: {close : any}) {
           placeholder="12,99"
           inputMode="numeric"
           onChange={(e) => {
+            
             e.target.value = currencyMask(e.target.value)
             setProduto({...produto, preco: parseFloat(e.target.value.replace(',','.')) })
+            
           }}
           
           error={error.preco}

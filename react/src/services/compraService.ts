@@ -24,7 +24,7 @@ export function getTotal(itens : any[]) : number{
 }
 const env = import.meta.env.VITE_API_URL
 export const getCompra = (page : number) => {
-  return axios.get(env + `/compra?page=${page-1}&size=6&sort=id,desc`)
+  return axios.get(env + `/compra?page=${page}&size=6&sort=id,desc`)
 }
 export const postCompra = (compra: Compra) => {
   return axios.post(import.meta.env.VITE_API_URL + "/compra", compra);

@@ -11,8 +11,8 @@ export default function SomaVendasDia(){
             labels: dados.map((s)=> `${s.dia}/${s.mes}/${s.ano}`),
             datasets: [
                 {
-                    label: '',
-                    data: dados.map(x=>x.total),
+                    label: 'Total',
+                    data: dados.map(x=>  x.total),
                     backgroundColor:[
                         "rgba(75,192,192,1)",
                         "rgb(75, 139, 192)"

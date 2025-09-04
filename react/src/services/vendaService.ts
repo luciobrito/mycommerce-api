@@ -40,4 +40,4 @@ const url = import.meta.env.VITE_API_URL + "/venda"
 export const postVenda = (venda : Venda) => 
     axios.post(url, venda)
 
-export const getVenda = (page : number) => axios.get(`${url}?page=${page}`)
+export const getVenda = (page : number) => axios.get(`${url}?page=${page}&size=6&sort=id,desc`)

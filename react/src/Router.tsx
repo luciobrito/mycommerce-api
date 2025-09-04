@@ -5,7 +5,7 @@ import Produtos from "./pages/produtos/produtos";
 import CompraPage from "./pages/produtos/compra/compra";
 import Venda from "./pages/produtos/venda/venda";
 import Estatisticas from "./pages/estatisticas/estatisticas";
-import Historico from "./pages/Historico";
+import Historico from "./pages/historico/Historico";
 
 export default function Router() {
   return (

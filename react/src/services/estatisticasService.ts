@@ -5,4 +5,5 @@ export interface SomaDiaria{
     mes : number,
     total : number
 }
-export const getSomaVendasDia = () => axios.get("http://localhost:8080/venda/somaDiaria")
+const url = import.meta.env.VITE_API_URL
+export const getSomaVendasDia = () => axios.get(url+"/venda/somaDiaria")

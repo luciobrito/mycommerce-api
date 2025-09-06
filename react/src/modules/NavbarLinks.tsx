@@ -35,7 +35,10 @@ export default function NavbarLinks({ toggle }: { toggle: any }) {
         label={<Text fw={500}>Sair</Text>}
         leftSection={<FaArrowRightToBracket size={20} />}
         onClick={() => {
-          console.log("a");
+          localStorage.removeItem("token");
+          localStorage.removeItem("compra");
+          localStorage.removeItem("venda");
+          window.location.replace("/login")
         }}
       />
     </>

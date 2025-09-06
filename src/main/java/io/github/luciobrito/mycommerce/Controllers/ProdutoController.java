@@ -15,8 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-//Provisório, remover depois
-@CrossOrigin
+
 @RestController
 public class ProdutoController {
     @Autowired

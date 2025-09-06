@@ -1,9 +1,10 @@
 import AppBar from './modules/AppBar'
 import Login from './pages/login/page'
+import { isLogged } from './services/loginService'
 
 function App() {
   return <>
-  {false ? <AppBar/> : <Login/>}
+  {isLogged() ? <AppBar/> : <Login/>}
   
   
   </>

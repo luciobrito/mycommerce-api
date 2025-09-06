@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 //Provisório, remover depois
-@CrossOrigin
+
 @RestController()
 @RequestMapping("/compra")
 public class CompraController {

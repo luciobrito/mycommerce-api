@@ -27,13 +27,14 @@ export default function Router() {
 }
 
 export const routerConst = createBrowserRouter([
+  
   {path:"/",
     element: <Home/>
    }
    ,
    {
     path:"/compra",
-    element: <CompraPage/>
+    element: <CompraPage/>,
    },
    {path:"/venda", element:<Venda/>},
    {path:"/estatisticas", element:<Estatisticas/>},

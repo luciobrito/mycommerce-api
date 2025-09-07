@@ -1,4 +1,4 @@
-import { Loader, LoadingOverlay, Pagination, Tabs, Title } from "@mantine/core";
+import { Loader, Pagination, Tabs, Title } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { defaultPageResponse, PageResponse } from "../../types/PageResponse";
 import Dados from "./dados";
@@ -6,7 +6,6 @@ import { Compra, getCompra } from "../../services/compraService";
 import { getVenda, Venda } from "../../services/vendaService";
 
 export default function Historico() {
-  const defaultPage = { content: [] };
   const loaderStyle = {
     display: "flex",
     alignItems: "center",

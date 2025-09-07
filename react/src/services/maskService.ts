@@ -11,7 +11,6 @@ export function currencyMask(value : string){
     if(regex.length == 2) regex = '0' + regex
     if(regex.length == 1) regex = '00' + regex
     if(!regex.includes(',')) regex = '00' + regex
-    var floatValue = parseFloat(value)
     if(regex[0] == '0' && regex[1] == '0') regex = regex.slice(1)
     if(regex[0] == '0' && regex[1] != '0' && regex[1] != ',') regex = regex.slice(1)
 

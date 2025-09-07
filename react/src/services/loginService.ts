@@ -1,5 +1,5 @@
 import axios from "axios";
-import { jwtDecode, JwtHeader } from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 export class Token{
     public value : string
     private decoded 
@@ -8,7 +8,8 @@ export class Token{
         this.decoded = jwtDecode(this.value)
     }
     isExpired():boolean{
-        return new Date(this.decoded.exp ?? 0 * 1000) > new Date()
+        if(this.decoded.exp == undefined) return true;
+        else return new Date(this.decoded.exp * 1000) < new Date()
     }
 }
 export interface LoginField {
@@ -27,7 +28,7 @@ export const isLogged = () : boolean => {
     var tokenStored = localStorage.getItem("token")
     if(tokenStored != null){
         var token = new Token(tokenStored);
-        return (token.value != null) || (!token.isExpired()) ;
+        return !token.isExpired() ;
     }
     return false;
 

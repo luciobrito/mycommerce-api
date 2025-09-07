@@ -4,7 +4,6 @@ import {
   Compra,
   defaultCompra,
   ItemCompra,
-  postCompra,
 } from "../../../services/compraService";
 import "./compra.scss";
 import ListaItens from "./listaItens";
@@ -51,19 +50,14 @@ export default function CompraPage() {
   };
   const updateCompra = (valor: Partial<Compra>) => {
     setCompra({ ...compra, ...valor });
-    console.log(compra);
+    console.debug(compra);
   };
   const updateItem = (valor: Partial<ItemCompra>, id: number) => {
     var obj = { ...compra };
     var index = obj.itens.findIndex((x) => x.idProduto == id);
     obj.itens[index] = { ...obj.itens[index], ...valor };
     setCompra(obj);
-    console.log(compra);
-  };
-  const finalizarCompra = () => {
-    //Salvar alterações e esvaziar arrays
-    postCompra(compra);
-    //setCompra({...compra, itens:[]});
+    console.debug(compra);
   };
   return (
     <div>
@@ -121,7 +115,6 @@ export default function CompraPage() {
       <Text size="lg">{toBrazilianReal(total)}</Text>
       <FinalizarCompra
         itens={compra.itens}
-        finalizarCompra={finalizarCompra}
         updateCompra={updateCompra}
       />
     </div>

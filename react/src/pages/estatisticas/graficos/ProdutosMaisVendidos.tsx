@@ -14,18 +14,18 @@ export default function ProdutosMaisVendidosChart() {
   });
   const [dados, setDados] = useState<ProdutosMaisVendidos[]>();
   const [segmentValue, setSegmentValue] = useState("0");
-  const [parametros, setParametros] = useState({
+  const parametros  = {
     mes: date.getMonth() + 1,
-    ano: date.getFullYear(),
-  });
+    ano: date.getFullYear()}
   useEffect(() => {
-    console.log(segmentValue);
+    
+    console.debug(segmentValue);
     getProdutosMaisVendidos(parametros.mes, parametros.ano).then((res) => {
       console.debug(dados);
       setDados(res.data);
       console.debug(res.data);
     });
-  }, [parametros, segmentValue]);
+  }, [segmentValue]);
   const chartData = [
     {
       data: dados?.map((x) => x.qntVendida),

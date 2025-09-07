@@ -1,9 +1,8 @@
-import { Button, NativeSelect, NumberInput, TextInput } from "@mantine/core";
-import { DatePickerInput } from "@mantine/dates";
+import { Button, NativeSelect, TextInput } from "@mantine/core";
+
 import { useState } from "react";
-import { defaultVenda, getTotal, postVenda, Venda } from "../../../services/vendaService";
+import {  getTotal, postVenda, Venda } from "../../../services/vendaService";
 import "./finalizarForm.scss";
-import { getCurrentDate } from "../../../services/dateFormat";
 import SuccessNotification from "../modules/SuccessNotification";
 import { currencyMask } from "../../../services/maskService";
 export default function FinalizarForm({
@@ -15,7 +14,7 @@ export default function FinalizarForm({
 }) {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const date = getCurrentDate(new Date());
+  //const date = getCurrentDate(new Date());
   const formasPagamento = ["Pix", "Credito", "Debito", "Dinheiro Fisico"];
   const total = getTotal(venda.itens)
   const finalizarVenda = () => {
@@ -30,7 +29,7 @@ export default function FinalizarForm({
   };
   const updateVenda = (obj: Partial<Venda>) => {
     setVenda({...venda, ...obj})
-    console.log(venda)
+    console.debug(venda)
   }
   return (
     <>
@@ -47,7 +46,7 @@ export default function FinalizarForm({
                 ...x,
                 ...{ formaPagamento: e.target.value },
               }));
-              console.log(venda);
+              console.debug(venda);
             }}
           />{/* 
           <DatePickerInput

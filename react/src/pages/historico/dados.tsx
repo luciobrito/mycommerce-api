@@ -24,7 +24,7 @@ export default function Dados({tipo, dados}: {tipo: "Venda" |"Compra", dados:Pag
                     {'formaPagamento' in item && <Text>Forma de pagamento: {item.formaPagamento}</Text>}
                     <Text>Itens:</Text>
                     {item.itens.map(i => (
-                        <List key={i.idProduto}>
+                        <List key={i.produto.id}>
 
                             <div style={{ display: "flex", alignItems: "baseline", width: "100%", marginTop: 7, marginBottom: 7, marginLeft:5, flexDirection: "row", justifyContent: "space-between" }}>
                                 <Text>

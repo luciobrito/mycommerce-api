@@ -4,8 +4,6 @@ import App from './App.tsx'
 import { createTheme, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 import axios from 'axios';
-import { isLogged } from './services/loginService.ts';
-
 const theme = createTheme({primaryColor:'indigo', fontFamily:'Rubik'})
 axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem("token")
 

@@ -19,11 +19,11 @@ export default function VendaPage() {
     buscarProdutos(valorBusca)
       .then((res) => {
         setProdutosBusca(res.data);
-        console.log(buscaLdng);
+        console.debug(buscaLdng);
       })
       .finally(() => {
         setBuscaLdng(false);
-        console.log(buscaLdng);
+        console.debug(buscaLdng);
       });
     },300);
 
@@ -43,7 +43,7 @@ localStorage.setItem("venda", JSON.stringify(venda))
   };
   //localStorage.setItem("ItemVenda", JSON.stringify(itensVenda));
 
-  console.log(venda);
+  console.debug(venda);
   return (
     <div className="containerVenda">
       <Title>Nova Venda</Title>

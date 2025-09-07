@@ -1,5 +1,5 @@
 import { FaTrash } from "react-icons/fa6";
-import { ItemCompra, postCompra } from "../../../services/compraService";
+import { ItemCompra } from "../../../services/compraService";
 import {
   Button,
   Divider,

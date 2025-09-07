@@ -4,31 +4,27 @@ import {
   ItemCompra,
   postCompra,
 } from "../../../services/compraService";
-import { DatePickerInput } from "@mantine/dates";
-import { dataFutura, getCurrentDate } from "../../../services/dateFormat";
 import { currencyMask } from "../../../services/maskService";
 import { useState } from "react";
 import SuccessNotification from "../modules/SuccessNotification";
 
 export default function FinalizarCompra({
   itens,
-  finalizarCompra,
   updateCompra,
 }: {
   itens: ItemCompra[];
-  finalizarCompra: any;
   updateCompra: any;
 }) {
   const [loading, setLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const [error, setError] = useState({desconto:""});
-  const dataCompra = JSON.parse(localStorage.getItem("compra") ?? "{}").dataCompra;
-  const date = getCurrentDate(new Date());
+  //const dataCompra = JSON.parse(localStorage.getItem("compra") ?? "{}").dataCompra;
+  //const date = getCurrentDate(new Date());
   const finalizar = () => {
     setLoading(true);
     postCompra(JSON.parse(localStorage.getItem("compra") ?? "{}"))
       .then((res) => {
-        console.log(res);
+        console.debug(res);
         localStorage.removeItem("compra");
         updateCompra(defaultCompra);
         setSuccess(true)
